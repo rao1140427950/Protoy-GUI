@@ -1,12 +1,23 @@
-﻿<Window x:Class="Protoy.MainWindow"
+﻿<Window x:Name="MainWindow0" x:Class="Protoy.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Protoy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="1080" Width="1920" WindowState="Maximized">
+    <Grid x:Name="MainGrid">
+        <Menu x:Name="Navbar" Height="23" Margin="0,0,0,0" VerticalAlignment="Top" Width="1912.8">
+            <MenuItem x:Name="Nav_File" Header="File">
+                <MenuItem x:Name="Nav_File_New" Header="New"/>
+                <MenuItem x:Name="Nav_File_Open" Header="Open"/>
+                <MenuItem x:Name="Nav_File_Save" Header="Save"/>
+            </MenuItem>
+            <MenuItem x:Name="Nav_Settings" Header="Settings">
+                <MenuItem x:Name="Nav_Settings_Port" Header="Port"/>
+                <MenuItem x:Name="Nav_Settings_C51" Header="C51" Click="Nav_Settings_C51_Click"/>
+            </MenuItem>
+        </Menu>
+
     </Grid>
 </Window>
