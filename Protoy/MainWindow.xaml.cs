@@ -26,16 +26,19 @@ namespace Protoy
             InitializeComponent();
         }
 
+        // Choose path for C51 compiler 
         private void Nav_Settings_C51_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog openFileDialog = new FolderBrowserDialog();
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                GlobalVariable.C51_path = openFileDialog.SelectedPath;
-                GlobalVariable.C51_diskname = GlobalVariable.C51_path.Split(':')[0];
-                GlobalVariable.C51_folder = GlobalVariable.C51_path.Split(':')[1].Remove(0, 1);
-                System.Windows.MessageBox.Show(GlobalVariable.C51_diskname+'\n'+GlobalVariable.C51_folder);
+                Config.C51_path = openFileDialog.SelectedPath;
+                Config.C51_diskname = Config.C51_path.Split(':')[0];
+                Config.C51_folder = Config.C51_path.Split(':')[1].Remove(0, 1);
+                System.Windows.MessageBox.Show(Config.C51_diskname+'\n'+Config.C51_folder);
             }
         }
     }
+
 }
+
