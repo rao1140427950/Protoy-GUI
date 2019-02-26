@@ -86,6 +86,9 @@ namespace Protoy
             temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
             temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
             temp.TextWrapping = this.TextWrapping;
+            temp.MinWidth = this.MinWidth;
+            temp.MaxWidth = this.MaxWidth;
+            temp.Width = this.Width;
             // Write log to console
             Console.WriteLine(DateTime.Now.ToString() + @" : Clone TextBox '" + this.Text + @"' for rectangle");
             return temp;
