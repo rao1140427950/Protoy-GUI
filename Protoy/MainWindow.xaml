@@ -27,8 +27,20 @@
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
                             <local:NewLabel Content="Initial" FontSize="14" Canvas.Top="2"/>
                         </local:NewCanvas>
-                        <local:NewCanvas x:Name="Rec_Loop" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Background="#FF00CD71" Index="2">
+                        <local:NewCanvas x:Name="Rec_Loop" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Background="#FF00CD71" Index="2"
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
                             <local:NewLabel Content="Loop" FontSize="14" Canvas.Top="2"/>
+                        </local:NewCanvas>
+                        <local:NewCanvas x:Name="Rec_While" Height="32" Canvas.Left="10" Canvas.Top="80" Width="150" Background="#FF00CD71" Index="3" 
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
+                            <local:NewLabel Content="While" FontSize="14" Canvas.Top="2"/>
+                            <local:NewTextBox Canvas.Left="54" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="90"/>
+                        </local:NewCanvas>
+                        <local:NewCanvas x:Name="Rec_Delayms" Height="32" Canvas.Left="180" Canvas.Top="80" Width="150" Background="#FF00CD71" Index="4"
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
+                            <local:NewLabel Content="Delay" FontSize="14" Canvas.Top="2"/>
+                            <local:NewTextBox Canvas.Left="50" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="90" Width="40"/>
+                            <local:NewLabel Content="ms" FontSize="14" Canvas.Top="2" Canvas.Left="90"/>
                         </local:NewCanvas>
                     </Canvas>
                 </Border>

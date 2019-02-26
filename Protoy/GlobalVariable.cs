@@ -24,5 +24,7 @@ namespace Protoy
 
         public const ushort Rec_Initial = 1;
         public const ushort Rec_Loop = 2;
+        public const ushort Rec_While = 3;
+        public const ushort Rec_Delayms = 4;
     }
 }

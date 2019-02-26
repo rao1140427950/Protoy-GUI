@@ -53,7 +53,7 @@ namespace Protoy
             DraggedItem.MouseLeftButtonUp += new MouseButtonEventHandler(Rec_MouseLeftButtonUp);
             DraggedItem.MouseMove += new System.Windows.Input.MouseEventHandler(Rec_MouseMove);
             // Add to parent element
-            Console.WriteLine(DraggedItem.Parent);
+            //Console.WriteLine(DraggedItem.Parent);
             Group_Basic.Children.Add(DraggedItem);
             // drag setup
             pos = e.GetPosition(null);

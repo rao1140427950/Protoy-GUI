@@ -34,6 +34,11 @@ namespace Protoy
                     NewLabel newLabel = (NewLabel)this.Children[i];
                     temp.Children.Add(newLabel.Clone());
                 }
+                else if (this.Children[i] is NewTextBox)
+                {
+                    NewTextBox newTextBox = (NewTextBox)this.Children[i];
+                    temp.Children.Add(newTextBox.Clone());
+                }
                 // ===========================================
                 // Add new elements here
                 // ===========================================
@@ -58,8 +63,31 @@ namespace Protoy
             temp.Content = this.Content;
             temp.FontSize = this.FontSize;
             temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
+            temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
             // Write log to console
             Console.WriteLine(DateTime.Now.ToString() + @" : Clone label '" + this.Content + @"' for rectangle");
+            return temp;
+        }
+    }
+
+    // Inherit Label
+    // Add property and method
+    class NewTextBox : TextBox
+    {
+        public ushort Index { get; set; }  // Indicate the index of the object in its type
+
+        // Generate deep copies
+        public NewTextBox Clone()
+        {
+            NewTextBox temp = new NewTextBox();
+
+            temp.Text = this.Text;
+            temp.FontSize = this.FontSize;
+            temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
+            temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
+            temp.TextWrapping = this.TextWrapping;
+            // Write log to console
+            Console.WriteLine(DateTime.Now.ToString() + @" : Clone TextBox '" + this.Text + @"' for rectangle");
             return temp;
         }
     }
