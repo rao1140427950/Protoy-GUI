@@ -19,7 +19,27 @@ namespace Protoy
         {
             NewCanvas temp = new NewCanvas();
 
-
+            ushort cnt = Define.Counter[this.Index]++;
+            temp.Index = this.Index;
+            temp.Name = this.Name + cnt;
+            temp.Height = this.Height;
+            temp.Width = this.Width;
+            temp.Background = this.Background;
+            temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
+            temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
+            for(int i = 0; i < this.Children.Count; i++)
+            {
+                if (this.Children[i] is NewLabel)
+                {
+                    NewLabel newLabel = (NewLabel)this.Children[i];
+                    temp.Children.Add(newLabel.Clone());
+                }
+                // ===========================================
+                // Add new elements here
+                // ===========================================
+            }
+            // Write log to console
+            Console.WriteLine(DateTime.Now.ToString() + " : Clone <" + this.Name + "> to <" + temp.Name + ">");
             return temp;
         }
     }
@@ -35,6 +55,11 @@ namespace Protoy
         {
             NewLabel temp = new NewLabel();
 
+            temp.Content = this.Content;
+            temp.FontSize = this.FontSize;
+            temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
+            // Write log to console
+            Console.WriteLine(DateTime.Now.ToString() + @" : Clone label '" + this.Content + @"' for rectangle");
             return temp;
         }
     }

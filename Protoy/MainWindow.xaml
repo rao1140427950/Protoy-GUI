@@ -23,10 +23,11 @@
                 <Border x:Name="Basic_Border" BorderBrush="Black" BorderThickness="1" Height="201.6" Width="345" Canvas.Left="5">
                     <Canvas x:Name="Group_Basic">
                         <Label x:Name="Label_Basic" Content="Basic" Width="343" Height="30.84" Background="#FFDFDFDF" FontSize="14"/>
-                        <local:NewCanvas x:Name="Rec_Initial" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Background="#FF00CD71">
+                        <local:NewCanvas x:Name="Rec_Initial" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Background="#FF00CD71" Index="1" 
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
                             <local:NewLabel Content="Initial" FontSize="14" Canvas.Top="2"/>
                         </local:NewCanvas>
-                        <local:NewCanvas x:Name="Rec_Loop" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Background="#FF00CD71">
+                        <local:NewCanvas x:Name="Rec_Loop" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Background="#FF00CD71" Index="2">
                             <local:NewLabel Content="Loop" FontSize="14" Canvas.Top="2"/>
                         </local:NewCanvas>
                     </Canvas>

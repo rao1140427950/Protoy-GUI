@@ -22,7 +22,7 @@ namespace Protoy
 
         public static ushort[] Counter = new ushort[MAX_TYPENUM];
 
-        public const ushort Rec_Initial = 0;
-        public const ushort Rec_Loop = 1;
+        public const ushort Rec_Initial = 1;
+        public const ushort Rec_Loop = 2;
     }
 }
