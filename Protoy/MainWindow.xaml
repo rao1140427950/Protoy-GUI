@@ -20,7 +20,7 @@
         </Menu>
         <Canvas x:Name="RootCanvas" Margin="0,28,0,0">
             <Canvas x:Name="Canvas1" Height="659.2" Width="350" Canvas.Left="0" Canvas.Top="0">
-                <Border x:Name="Basic_Border" BorderBrush="Black" BorderThickness="1" Height="201.6" Width="345" Canvas.Left="5">
+                <Border x:Name="Basic_Border" BorderBrush="Black" BorderThickness="1" Height="201.6" Width="345" Canvas.Left="5" Canvas.Top="0">
                     <Canvas x:Name="Group_Basic">
                         <Label x:Name="Label_Basic" Content="Basic" Width="343" Height="30.84" Background="#FFDFDFDF" FontSize="14"/>
                         <local:NewCanvas x:Name="Rec_Initial" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Background="#FF00CD71" Index="1" 
@@ -34,12 +34,14 @@
                         <local:NewCanvas x:Name="Rec_While" Height="32" Canvas.Left="10" Canvas.Top="80" Width="150" Background="#FF00CD71" Index="3" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
                             <local:NewLabel Content="While" FontSize="14" Canvas.Top="2"/>
-                            <local:NewTextBox Canvas.Left="54" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="90"/>
+                            <local:NewTextBox Canvas.Left="54" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="90" Height="20" 
+                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null"/>
                         </local:NewCanvas>
                         <local:NewCanvas x:Name="Rec_Delayms" Height="32" Canvas.Left="180" Canvas.Top="80" Width="150" Background="#FF00CD71" Index="4"
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
                             <local:NewLabel Content="Delay" FontSize="14" Canvas.Top="2"/>
-                            <local:NewTextBox Canvas.Left="50" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="90" Width="40"/>
+                            <local:NewTextBox Canvas.Left="50" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="40" Height="20" 
+                                              MaxHeight="20" RegexString="^\d{1,4}$" DefaultText="0"/>
                             <local:NewLabel Content="ms" FontSize="14" Canvas.Top="2" Canvas.Left="90"/>
                         </local:NewCanvas>
                     </Canvas>
