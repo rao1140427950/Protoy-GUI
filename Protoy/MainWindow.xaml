@@ -5,51 +5,166 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Protoy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="MainWindow" Height="720" Width="800">
+    <Window.Background>
+        <ImageBrush/>
+    </Window.Background>
     <Grid x:Name="MainGrid">
-        <Menu x:Name="Navbar" Height="23" Margin="0,0,0,0" VerticalAlignment="Top" Width="1912.8">
-            <MenuItem x:Name="Nav_File" Header="File">
-                <MenuItem x:Name="Nav_File_New" Header="New"/>
-                <MenuItem x:Name="Nav_File_Open" Header="Open"/>
-                <MenuItem x:Name="Nav_File_Save" Header="Save"/>
-            </MenuItem>
-            <MenuItem x:Name="Nav_Settings" Header="Settings">
-                <MenuItem x:Name="Nav_Settings_Port" Header="Port"/>
-                <MenuItem x:Name="Nav_Settings_C51" Header="C51" Click="Nav_Settings_C51_Click"/>
-            </MenuItem>
-        </Menu>
-        <Canvas x:Name="RootCanvas" Margin="0,28,0,0">
-            <Canvas x:Name="Canvas1" Height="659.2" Width="350" Canvas.Left="0" Canvas.Top="0">
-                <Border x:Name="Basic_Border" BorderBrush="Black" BorderThickness="1" Height="201.6" Width="345" Canvas.Left="5" Canvas.Top="0">
-                    <Canvas x:Name="Group_Basic">
-                        <Label x:Name="Label_Basic" Content="Basic" Width="343" Height="30.84" Background="#FFDFDFDF" FontSize="14"/>
-                        <local:NewCanvas x:Name="Rec_Initial" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Background="#FF00CD71" Index="1" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
-                            <local:NewLabel Content="Initial" FontSize="14" Canvas.Top="2"/>
-                        </local:NewCanvas>
-                        <local:NewCanvas x:Name="Rec_Loop" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Background="#FF00CD71" Index="2"
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
-                            <local:NewLabel Content="Loop" FontSize="14" Canvas.Top="2"/>
-                        </local:NewCanvas>
-                        <local:NewCanvas x:Name="Rec_While" Height="32" Canvas.Left="10" Canvas.Top="80" Width="150" Background="#FF00CD71" Index="3" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
-                            <local:NewLabel Content="While" FontSize="14" Canvas.Top="2"/>
-                            <local:NewTextBox Canvas.Left="54" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="90" Height="20" 
-                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null"/>
-                        </local:NewCanvas>
-                        <local:NewCanvas x:Name="Rec_Delayms" Height="32" Canvas.Left="180" Canvas.Top="80" Width="150" Background="#FF00CD71" Index="4"
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp">
-                            <local:NewLabel Content="Delay" FontSize="14" Canvas.Top="2"/>
-                            <local:NewTextBox Canvas.Left="50" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="40" Height="20" 
-                                              MaxHeight="20" RegexString="^\d{1,4}$" DefaultText="0"/>
-                            <local:NewLabel Content="ms" FontSize="14" Canvas.Top="2" Canvas.Left="90"/>
-                        </local:NewCanvas>
-                    </Canvas>
-                </Border>
-            </Canvas>
-            <GridSplitter x:Name="RootGridSplitter" Height="847.2" Background="Gray" Width="3" HorizontalAlignment="Left" Canvas.Left="355"/>
-            <Canvas x:Name="Canvas2" Height="659.2" Width="910.6" Canvas.Left="363" Canvas.Top="0"/>
-        </Canvas>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="67*"/>
+            <ColumnDefinition Width="539*"/>
+            <ColumnDefinition Width="188*"/>
+        </Grid.ColumnDefinitions>
+        <Menu x:Name="Navbar" Height="40" Margin="0,0,-564.634,0" VerticalAlignment="Top" Background="#D8BFD8" Grid.ColumnSpan="3" Width="2000">
+            <Menu.Resources>
 
+                <Style x:Key="ShiningMenuStyle" TargetType="{x:Type Border}">
+                    <Setter Property="Background" Value="#D15FEE"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+                <ControlTemplate x:Key="MenuItemBorderTemplate" TargetType="{x:Type MenuItem}">
+                    <Grid>
+                        <Border Style="{StaticResource ShiningMenuStyle}" BorderBrush="Plum" BorderThickness="1" Height="40" Width="{TemplateBinding Width}" 
+                                CornerRadius="20,20,1,1"  Cursor="Hand" />
+                        <TextBlock Text="{TemplateBinding Header}" IsHitTestVisible="False"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Popup
+              x:Name="SubMenuPopup"
+              Focusable="false"
+              IsOpen="{Binding Path=IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
+              Placement="Bottom"
+              PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
+
+                            <!--  边框颜色改在下面的BorderBrush  -->
+                            <Border
+                Padding="0"
+                Background="White"
+                BorderBrush="Brown"
+                BorderThickness="1">
+                                <Border
+                  Padding="0"
+                  Background="White"
+                  BorderThickness="1">
+                                    <Grid x:Name="SubMenu" Grid.IsSharedSizeScope="True">
+                                        <!--  StackPanel holds children of the menu. This is set by IsItemsHost=True  KeyboardNavigationMode = "Cycle"  -->
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    </Grid>
+                                </Border>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+
+            </Menu.Resources>
+
+            <MenuItem x:Name="Nav_File" Header="File" Height="40" Width="125" Foreground="White" FontSize="14" 
+                      Template="{StaticResource MenuItemBorderTemplate}" >
+                <MenuItem x:Name="Nav_File_New" Header="New" Cursor="Hand"  Background="#FFD8BFD8"/>
+                <MenuItem x:Name="Nav_File_Open" Header="Open" Cursor="Hand" Background="#FFD8BFD8"/>
+                <MenuItem x:Name="Nav_File_Save" Header="Save" Cursor="Hand" Background="#FFD8BFD8"/>
+            </MenuItem>
+            <MenuItem x:Name="Nav_Settings" Header=" Settings" Foreground="White"  Width="125" FontSize="14" 
+                      Template="{StaticResource MenuItemBorderTemplate}">
+                <MenuItem x:Name="Nav_Settings_Port" Header="Port" Cursor="Hand" Background="#FFD8BFD8"/>
+                <MenuItem x:Name="Nav_Settings_C51" Header="C51" Cursor="Hand" Background="#FFD8BFD8" Click="Nav_Settings_C51_Click"/>
+            </MenuItem>
+
+        </Menu>
+        <Canvas x:Name="RootCanvas" Margin="0,40,0,0" Background="SeaShell" Grid.ColumnSpan="3">
+
+
+            <Grid Canvas.Left="350" Height="650" Width="25" >
+                <ScrollViewer Width="22"  Grid.Column="1" Name="scrollViewer1" />
+            </Grid>
+
+            <Grid>
+                <Grid.Resources>
+                    <Style x:Key="ShiningBorderStyle" TargetType="{x:Type Border}">
+                        <Setter Property="Background" Value="#FFFF6a6a"/>
+                        <Setter Property="Opacity" Value="0.84" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.65" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Canvas Grid.Row="0" Margin="0,10,0,5" x:Name="Canvas1" Height="150" Width="350" Canvas.Left="-4" Background="SeaShell" Canvas.Top="5">
+                    <Border x:Name="Basic_Border" BorderBrush="#FFFF6A6A" BorderThickness="1.6" Height="150" Width="345" Canvas.Left="5" Canvas.Top="0">
+                        <Canvas x:Name="Group_Basic" Background="#FFE4E1" Margin="0,0,0,0" Height="147" VerticalAlignment="Top">
+                            <Label x:Name="Label_Basic" Content=" Basic"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FFFF6A6A"/>
+                            
+                            <local:NewCanvas x:Name="Rec_Initial" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="1" 
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand">
+                                
+                                <Grid Width="150" >
+                                    <Border Style="{StaticResource ShiningBorderStyle}" BorderBrush="Black" BorderThickness="0" Height="32" Width="150" CornerRadius="10"/>
+                                    <TextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14"  Foreground="White" Margin="0,6,0,6">Initial</TextBlock>
+                                </Grid>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_Loop" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Index="2"
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand">
+                                <Grid Width="150" >
+                                    <Border Style="{StaticResource ShiningBorderStyle}" BorderBrush="Black" BorderThickness="0" Height="32" Width="150" CornerRadius="10"   />
+                                    <TextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14"  Foreground="White" Margin="0,6,0,6.19">Loop</TextBlock>
+                                </Grid>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_While" Height="32" Canvas.Left="180" Canvas.Top="80" Width="150" Index="3" 
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand">
+                                <Grid Width="150" Cursor="Hand">
+                                    <Border Style="{StaticResource ShiningBorderStyle}" BorderBrush="Black" BorderThickness="0" Height="32" Width="150" CornerRadius="10"  Margin="0,1,0,-1"/>
+                                </Grid>
+                                <local:NewLabel IsHitTestVisible="False" Content="While" FontSize="14" Canvas.Top="2" Canvas.Left="25" Foreground="White" />
+                                <Viewbox Canvas.Left="75" MaxHeight="20" Canvas.Top="6" MinWidth="20" MaxWidth="40" Height="20" >
+                                    <Grid Width="20">
+                                        <Ellipse Stroke="#FFDFD0D0" Width="19" StrokeThickness="0.5" Fill="SeaShell" Height="10"/>
+                                        <TextBox TextAlignment="Center" BorderThickness="0" FontSize="6" Height="7.62" VerticalAlignment="Top" Foreground="#FFEC6A6A" SelectionBrush="White" Margin="0,1,0,0">
+                                            <TextBox.Background>
+                                                <SolidColorBrush Color="White" Opacity="0"/>
+                                            </TextBox.Background> Null
+                                        </TextBox>
+                                    </Grid>
+                                </Viewbox>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_Delayms" Height="32" Canvas.Left="10" Canvas.Top="80" Width="150" Index="4"
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand">
+                                <Grid Width="150" >
+                                    <Border Style="{StaticResource ShiningBorderStyle}" BorderBrush="Black" BorderThickness="0" Height="32" Width="150" CornerRadius="10" />
+                                </Grid>
+                                <local:NewLabel IsHitTestVisible="False" Content="Delay" FontSize="14" Canvas.Top="2" Canvas.Left="10" Foreground="White" />
+                                <Viewbox Canvas.Left="60" MaxHeight="20" Canvas.Top="6" MinWidth="20" MaxWidth="40" Height="20" >
+                                    <Grid Width="20">
+                                        <Ellipse Stroke="#FFDFD0D0" Width="19" StrokeThickness="0.5" Fill="SeaShell" Height="10"/>
+                                        <TextBox TextAlignment="Center" BorderThickness="0" FontSize="6" Height="7.62" VerticalAlignment="Top" Foreground="#FFEC6A6A" SelectionBrush="White" Margin="0,1,0,0">
+                                            <TextBox.Background>
+                                                <SolidColorBrush Color="White" Opacity="0"/>
+                                            </TextBox.Background> 0
+                                        </TextBox>
+                                    </Grid>
+                                </Viewbox>
+                                <local:NewLabel IsHitTestVisible="False" Content="ms" FontSize="14" Canvas.Top="2" Canvas.Left="100" Foreground="White" />
+                            </local:NewCanvas>
+                        </Canvas>
+                    </Border>
+                </Canvas>
+               
+
+            </Grid>
+            <GridSplitter x:Name="RootGridSplitter" Height="650" Background="SeaShell" Width="3" HorizontalAlignment="Left" Canvas.Left="355"/>
+            <Canvas x:Name="Canvas2" Height="659.2" Width="430.333" Canvas.Left="370" Canvas.Top="0" Background="SeaShell">
+            </Canvas>
+           
+        </Canvas>
     </Grid>
 </Window>

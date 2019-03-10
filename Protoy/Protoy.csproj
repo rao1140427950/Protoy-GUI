@@ -100,5 +100,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="basic_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="basic-background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="menu-background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="menu1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
