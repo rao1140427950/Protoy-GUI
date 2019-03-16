@@ -34,7 +34,7 @@ namespace Protoy
         public const UInt16 Rec_Delayms = 4;
 
         // The ZIndex to ensure the dragging item is on the top
-        public const Int32 ZIndex_OnDragging = 1;
+        public const Int32 ZIndex_OnDragging = 255;
         // The number of anchors
         public const Int32 AnchorNum = 3;
     }
@@ -43,7 +43,7 @@ namespace Protoy
     public static class Bias
     {
         // Bias for vertical margin between two rectangle
-        public const Double VerticalMargin = 5;
+        public const Double VerticalMargin = 2;
         // Bias for indent
         public const Double Indent = 30;
         // Bias for anchor radius

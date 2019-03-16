@@ -16,6 +16,7 @@ namespace Protoy
     class NewCanvas : Canvas
     {
         public ushort Index { get; set; }  // Indicate the index of the object in its type
+        public SolidColorBrush ThemeColor { get; set; }  // Theme coler, for backgroud and text
 
         // Generate deep copies
         public NewCanvas Clone()
@@ -27,20 +28,22 @@ namespace Protoy
             temp.Name = this.Name + cnt;
             temp.Height = this.Height;
             temp.Width = this.Width;
-            temp.Background = this.Background;
+            temp.Cursor = this.Cursor;
+            temp.ThemeColor = this.ThemeColor;
+            //temp.Background = this.Background;
             temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
             temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
             temp.SetValue(Canvas.ZIndexProperty, Define.ZIndex_OnDragging);
             for(int i = 0; i < this.Children.Count; i++)
             {
                 if (this.Children[i] is NewLabel newLabel)
-                {
                     temp.Children.Add(newLabel.Clone());
-                }
                 else if (this.Children[i] is NewTextBox newTextBox)
-                {
                     temp.Children.Add(newTextBox.Clone());
-                }
+                else if (this.Children[i] is NewTextBlock newTextBlock)
+                    temp.Children.Add(newTextBlock.Clone());
+                else if (this.Children[i] is NewBorder newBorder)
+                    temp.Children.Add(newBorder.Clone());
                 // ===========================================
                 // Add new elements here
                 // ===========================================
@@ -66,16 +69,78 @@ namespace Protoy
             temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
             temp.Height = this.Height;
             temp.MaxHeight = this.MaxHeight;
+            temp.IsHitTestVisible = this.IsHitTestVisible;
+            temp.Foreground = this.Foreground;
             // ===========================================
             // Add new elements here
             // ===========================================
             // Write log to console
-            Console.WriteLine(DateTime.Now.ToString() + @" : Clone label '" + this.Content + @"' for rectangle");
+            Console.WriteLine(DateTime.Now.ToString() + @" : Clone label " + this.Content + @" for rectangle");
             return temp;
         }
     }
 
-    // Inherit Label
+    // Inherit Border
+    // Add property and method
+    class NewBorder : Border
+    {
+        // Generate deep copies
+        public NewBorder Clone()
+        {
+            NewBorder temp = new NewBorder();
+
+            temp.Style = this.Style;
+            temp.Background = this.Background;
+
+            //temp.Content = this.Content;
+            //temp.FontSize = this.FontSize;
+            //temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
+            //temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
+            //temp.Height = this.Height;
+            //temp.MaxHeight = this.MaxHeight;
+            //// ===========================================
+            //// Add new elements here
+            //// ===========================================
+            //// Write log to console
+            Console.WriteLine(DateTime.Now.ToString() + @" : Clone Border " + @" for rectangle");
+            return temp;
+        }
+    }
+
+    // Inherit TextBlock
+    // Add property and method
+    class NewTextBlock : TextBlock
+    {
+        // Generate deep copies
+        public NewTextBlock Clone()
+        {
+            NewTextBlock temp = new NewTextBlock();
+
+            temp.Style = this.Style;
+            temp.IsHitTestVisible = this.IsHitTestVisible;
+            temp.TextAlignment = this.TextAlignment;
+            temp.FontSize = this.FontSize;
+            temp.Foreground = this.Foreground;
+            temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
+            temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
+            temp.Text = this.Text;
+
+            //temp.Content = this.Content;
+            //temp.FontSize = this.FontSize;
+            //temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
+            //temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
+            //temp.Height = this.Height;
+            //temp.MaxHeight = this.MaxHeight;
+            //// ===========================================
+            //// Add new elements here
+            //// ===========================================
+            //// Write log to console
+            Console.WriteLine(DateTime.Now.ToString() + @" : Clone TextBlock '" + @"' for rectangle");
+            return temp;
+        }
+    }
+
+    // Inherit TextBox
     // Add property and method
     class NewTextBox : TextBox
     {
@@ -112,6 +177,7 @@ namespace Protoy
             temp.MaxHeight = this.MaxHeight;
             temp.RegexString = this.RegexString;
             temp.DefaultText = this.DefaultText;
+            temp.BorderBrush = this.BorderBrush;
             //temp.Width = this.Width;
             // ===========================================
             // Add new elements here
@@ -125,12 +191,13 @@ namespace Protoy
         {
             // Console.WriteLine(DateTime.Now.ToString() + @" : TextBox get focus");
             // Check whether is default text
+
             if (IsDefaultText)
             {
                 // Clean default text
                 Text = "";
                 // Change text color to black
-                Foreground = MyColors.Black;
+                Foreground = ((NewCanvas)this.Parent).ThemeColor;
             }
 
             // Update log

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Protoy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="800">
+        Title="Protoy GUI" Height="720" Width="1280">
     <Window.Background>
         <ImageBrush/>
     </Window.Background>
@@ -75,26 +75,33 @@
             </MenuItem>
 
         </Menu>
-        <Canvas x:Name="RootCanvas" Margin="0,40,0,0" Background="SeaShell" Grid.ColumnSpan="3">
+        <Canvas x:Name="RootCanvas" Margin="0,40,0,0" Background="SeaShell" Grid.ColumnSpan="3" Height="720" Width="1280">
 
+            <Canvas.Resources>
+                <Style x:Key="ShiningBorderStyle" TargetType="{x:Type Border}">
+                    <!--Setter Property="Background" Value="#FFFF6a6a"/-->
+                    <Setter Property="Opacity" Value="0.84" />
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Width" Value="150"/>
+                    <Setter Property="Height" Value="32"/>
+                    <Setter Property="CornerRadius" Value="10"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.65" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Canvas.Resources>
 
-            <Grid Canvas.Left="350" Height="650" Width="25" >
+            <Grid Canvas.Left="350" Width="25" Height="720" >
                 <ScrollViewer Width="22"  Grid.Column="1" Name="scrollViewer1" />
             </Grid>
 
             <Grid>
                 <Grid.Resources>
-                    <Style x:Key="ShiningBorderStyle" TargetType="{x:Type Border}">
-                        <Setter Property="Background" Value="#FFFF6a6a"/>
-                        <Setter Property="Opacity" Value="0.84" />
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.65" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
+
                 </Grid.Resources>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -104,67 +111,43 @@
                     <Border x:Name="Basic_Border" BorderBrush="#FFFF6A6A" BorderThickness="1.6" Height="150" Width="345" Canvas.Left="5" Canvas.Top="0">
                         <Canvas x:Name="Group_Basic" Background="#FFE4E1" Margin="0,0,0,0" Height="147" VerticalAlignment="Top">
                             <Label x:Name="Label_Basic" Content=" Basic"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FFFF6A6A"/>
-                            
+
                             <local:NewCanvas x:Name="Rec_Initial" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="1" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand">
-                                
-                                <Grid Width="150" >
-                                    <Border Style="{StaticResource ShiningBorderStyle}" BorderBrush="Black" BorderThickness="0" Height="32" Width="150" CornerRadius="10"/>
-                                    <TextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14"  Foreground="White" Margin="0,6,0,6">Initial</TextBlock>
-                                </Grid>
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="58" Canvas.Top="8">Initial</local:NewTextBlock>
                             </local:NewCanvas>
                             <local:NewCanvas x:Name="Rec_Loop" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Index="2"
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand">
-                                <Grid Width="150" >
-                                    <Border Style="{StaticResource ShiningBorderStyle}" BorderBrush="Black" BorderThickness="0" Height="32" Width="150" CornerRadius="10"   />
-                                    <TextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14"  Foreground="White" Margin="0,6,0,6.19">Loop</TextBlock>
-                                </Grid>
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="58" Canvas.Top="8">Loop</local:NewTextBlock>
                             </local:NewCanvas>
                             <local:NewCanvas x:Name="Rec_While" Height="32" Canvas.Left="180" Canvas.Top="80" Width="150" Index="3" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand">
-                                <Grid Width="150" Cursor="Hand">
-                                    <Border Style="{StaticResource ShiningBorderStyle}" BorderBrush="Black" BorderThickness="0" Height="32" Width="150" CornerRadius="10"  Margin="0,1,0,-1"/>
-                                </Grid>
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
                                 <local:NewLabel IsHitTestVisible="False" Content="While" FontSize="14" Canvas.Top="2" Canvas.Left="25" Foreground="White" />
-                                <Viewbox Canvas.Left="75" MaxHeight="20" Canvas.Top="6" MinWidth="20" MaxWidth="40" Height="20" >
-                                    <Grid Width="20">
-                                        <Ellipse Stroke="#FFDFD0D0" Width="19" StrokeThickness="0.5" Fill="SeaShell" Height="10"/>
-                                        <TextBox TextAlignment="Center" BorderThickness="0" FontSize="6" Height="7.62" VerticalAlignment="Top" Foreground="#FFEC6A6A" SelectionBrush="White" Margin="0,1,0,0">
-                                            <TextBox.Background>
-                                                <SolidColorBrush Color="White" Opacity="0"/>
-                                            </TextBox.Background> Null
-                                        </TextBox>
-                                    </Grid>
-                                </Viewbox>
+                                <local:NewTextBox Canvas.Left="73" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="70" Height="20" 
+                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null" BorderBrush="{x:Null}"/>
                             </local:NewCanvas>
                             <local:NewCanvas x:Name="Rec_Delayms" Height="32" Canvas.Left="10" Canvas.Top="80" Width="150" Index="4"
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand">
-                                <Grid Width="150" >
-                                    <Border Style="{StaticResource ShiningBorderStyle}" BorderBrush="Black" BorderThickness="0" Height="32" Width="150" CornerRadius="10" />
-                                </Grid>
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
                                 <local:NewLabel IsHitTestVisible="False" Content="Delay" FontSize="14" Canvas.Top="2" Canvas.Left="10" Foreground="White" />
-                                <Viewbox Canvas.Left="60" MaxHeight="20" Canvas.Top="6" MinWidth="20" MaxWidth="40" Height="20" >
-                                    <Grid Width="20">
-                                        <Ellipse Stroke="#FFDFD0D0" Width="19" StrokeThickness="0.5" Fill="SeaShell" Height="10"/>
-                                        <TextBox TextAlignment="Center" BorderThickness="0" FontSize="6" Height="7.62" VerticalAlignment="Top" Foreground="#FFEC6A6A" SelectionBrush="White" Margin="0,1,0,0">
-                                            <TextBox.Background>
-                                                <SolidColorBrush Color="White" Opacity="0"/>
-                                            </TextBox.Background> 0
-                                        </TextBox>
-                                    </Grid>
-                                </Viewbox>
+                                <local:NewTextBox Canvas.Left="60" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="40" Height="20" 
+                                              MaxHeight="20" RegexString="^\d{1,4}$" DefaultText="0" BorderBrush="{x:Null}"/>
                                 <local:NewLabel IsHitTestVisible="False" Content="ms" FontSize="14" Canvas.Top="2" Canvas.Left="100" Foreground="White" />
                             </local:NewCanvas>
                         </Canvas>
                     </Border>
                 </Canvas>
-               
+
 
             </Grid>
             <GridSplitter x:Name="RootGridSplitter" Height="650" Background="SeaShell" Width="3" HorizontalAlignment="Left" Canvas.Left="355"/>
-            <Canvas x:Name="Canvas2" Height="659.2" Width="430.333" Canvas.Left="370" Canvas.Top="0" Background="SeaShell">
+            <Canvas x:Name="Canvas2" Height="659.2" Width="910" Canvas.Left="370" Canvas.Top="0" Background="SeaShell">
+
             </Canvas>
-           
+
         </Canvas>
     </Grid>
 </Window>

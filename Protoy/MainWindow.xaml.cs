@@ -94,6 +94,7 @@ namespace Protoy
                 (Double)canvas.Parent.GetValue(Canvas.TopProperty) + (Double)Canvas1.GetValue(Canvas.TopProperty);
             DraggedItem.SetValue(Canvas.TopProperty, RecPos.Y);
             DraggedItem.SetValue(Canvas.LeftProperty, RecPos.X);
+            //Console.WriteLine("(x, y) = (" + RecPos.X + ", " + RecPos.Y + ")");
             RootCanvas.Children.Add(DraggedItem);
             // drag setup
             MousePos = e.GetPosition(null);
