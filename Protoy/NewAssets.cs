@@ -17,6 +17,7 @@ namespace Protoy
     {
         public ushort Index { get; set; }  // Indicate the index of the object in its type
         public SolidColorBrush ThemeColor { get; set; }  // Theme coler, for backgroud and text
+        //public ushort AnchorPointType;
 
         // Generate deep copies
         public NewCanvas Clone()
@@ -25,6 +26,7 @@ namespace Protoy
 
             ushort cnt = Define.Counter[this.Index]++;
             temp.Index = this.Index;
+            //temp.AnchorPointType = this.AnchorPointType;
             temp.Name = this.Name + cnt;
             temp.Height = this.Height;
             temp.Width = this.Width;
@@ -145,8 +147,8 @@ namespace Protoy
     class NewTextBox : TextBox
     {
         private bool IsDefaultText;  // Whether the content text has been editted
-        public String RegexString { get; set; }  // Define regular expression string
-        public String DefaultText { get; set; }  // Default text of the TextBox
+        public string RegexString { get; set; }  // Define regular expression string
+        public string DefaultText { get; set; }  // Default text of the TextBox
 
         public NewTextBox()
         {

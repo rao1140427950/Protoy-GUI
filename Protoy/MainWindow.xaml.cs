@@ -39,9 +39,11 @@ namespace Protoy
         // PosDelta = RecPos - MousePos
         private Point PosDelta;
         // Anchor points
-        private Point[] Anchor = new Point[3];
+        private Point[] Anchor = new Point[Define.AnchorNum];
         // Indent Counter
         // private UInt16 IndentCounter = 0;
+        // Serial port
+        private Serial serial;
 
         public MainWindow()
         {
@@ -55,9 +57,13 @@ namespace Protoy
             Anchor[0] = new Point(0, 0);
             Anchor[1] = new Point(0, 0);
             Anchor[2] = new Point(0, 0);
+            Anchor[3] = new Point(0, 0);
             // Initial RecPos
             RecPos = new Point(0, 0);
             // Initial pos delta
+
+            // Initial serial
+            serial = new Serial();
         }
 
         // Choose path for C51 compiler 
@@ -72,6 +78,17 @@ namespace Protoy
                 Config.C51_folder = Config.C51_path.Split(':')[1].Remove(0, 1);
                 System.Windows.MessageBox.Show(Config.C51_diskname+'\n'+Config.C51_folder);
             }
+        }
+
+        // Choose port for IDE
+        private void Nav_Settings_Port_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as System.Windows.Controls.MenuItem;
+
+            Config.Port = menuItem.Header.ToString();
+            serial.Close();
+            serial.PortName = Config.Port;
+            Console.WriteLine(DateTime.Now.ToString() + " : Port <" + Config.Port + "> selected");
         }
 
         private void Rec_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -117,9 +134,10 @@ namespace Protoy
                 (Double)Canvas2.GetValue(Canvas.TopProperty));
 
             // Item is on Canvas2 or not
-            if ((Double)DraggedItem.GetValue(Canvas.LeftProperty) > 0 && 
+            if ((Double)DraggedItem.GetValue(Canvas.LeftProperty) > 0 &&
                 (Double)DraggedItem.GetValue(Canvas.TopProperty) > 0)
                 IsInArea = true;
+            else IsInArea = false;
             
             // Position is legal or not
             if (IsInArea && (IsEmpty || IsAnchored))
@@ -131,16 +149,25 @@ namespace Protoy
 
                 Console.WriteLine(DateTime.Now.ToString() + " : Move <" + DraggedItem.Name + "> to <Canvas2>");
 
-                // Update anchor point
-                Anchor[1].X = (Double)DraggedItem.GetValue(Canvas.LeftProperty) + 
-                    (Double)Canvas2.GetValue(Canvas.LeftProperty);
-                Anchor[1].Y = (Double)DraggedItem.GetValue(Canvas.TopProperty) +
-                    (Double)Canvas2.GetValue(Canvas.TopProperty) + DraggedItem.Height + Bias.VerticalMargin;
-                Anchor[0].X = Anchor[1].X - Bias.Indent;
-                Anchor[0].Y = Anchor[1].Y;
-                Anchor[2].X = Anchor[1].X + Bias.Indent;
-                Anchor[2].Y = Anchor[1].Y;
-                Console.WriteLine(DateTime.Now.ToString() + " : Update anchor points");
+                // If is not anchored at the right anchor point
+                if (AnchorIndex != (Define.AnchorNum - 1))
+                {
+                    // Update anchor point
+                    Anchor[1].X = (Double)DraggedItem.GetValue(Canvas.LeftProperty) +
+                        (Double)Canvas2.GetValue(Canvas.LeftProperty);
+                    Anchor[1].Y = (Double)DraggedItem.GetValue(Canvas.TopProperty) +
+                        (Double)Canvas2.GetValue(Canvas.TopProperty) + DraggedItem.Height + Anchors.VerticalMargin;
+                    Anchor[0].X = Anchor[1].X - Anchors.Indent;
+                    Anchor[0].Y = Anchor[1].Y;
+                    Anchor[2].X = Anchor[1].X + Anchors.Indent;
+                    Anchor[2].Y = Anchor[1].Y;
+                    Anchor[3].X = (Double)DraggedItem.GetValue(Canvas.LeftProperty) +
+                        (Double)Canvas2.GetValue(Canvas.LeftProperty) + DraggedItem.Width + Anchors.HorizontalMargin;
+                    Anchor[3].Y = (Double)DraggedItem.GetValue(Canvas.TopProperty) +
+                        (Double)Canvas2.GetValue(Canvas.TopProperty);
+                    Console.WriteLine(DateTime.Now.ToString() + " : Update anchor points");
+                }
+                
             }
             else
             {
@@ -172,7 +199,8 @@ namespace Protoy
                 IsAnchored = false;
                 for (int i = 0; i < Define.AnchorNum; i++)
                 {
-                    if((Math.Pow(xPos - Anchor[i].X,2)+Math.Pow(yPos-Anchor[i].Y,2))<Math.Pow(Bias.AnchorRadius,2))
+                    if((Math.Pow(xPos - Anchor[i].X, 2) + Math.Pow(yPos - Anchor[i].Y, 2))
+                        < Math.Pow(Anchors.AnchorRadius, 2))
                     {
                         IsAnchored = true;
                         AnchorIndex = i;
@@ -196,6 +224,39 @@ namespace Protoy
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Serial serial = new Serial();
+
+            serial.Open();
+            serial.ReadTest();
+            //string temp = serial.ReadTest();
+            //Console.WriteLine(DateTime.Now.ToString() + " : " + temp);
+        }
+
+        private void Btn_ScanPort_Click(object sender, RoutedEventArgs e)
+        {
+            string[] ports = serial.GetAvaiablePorts();
+
+            Nav_Settings_Port.Items.Clear();
+            foreach(string port in ports)
+            {
+                System.Windows.Controls.MenuItem menuItem = new System.Windows.Controls.MenuItem
+                {
+                    Header = port,
+                    Background = MyColors.MenuColor
+                };
+                menuItem.Click += new RoutedEventHandler(Nav_Settings_Port_Click);
+                Nav_Settings_Port.Items.Add(menuItem);
+            }
+            Console.WriteLine(DateTime.Now.ToString() + " : Update port list");
+        }
+
+        private void Btn_ClearCanvas2_Click(object sender, RoutedEventArgs e)
+        {
+            Canvas2.Children.Clear();
+            IsEmpty = true;
+        }
     }
 
 }
