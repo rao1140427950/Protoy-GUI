@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Protoy指令集</title>
+</head>
+ 
+<body>
+
+<h3>LED控制指令</h3>
+<p>0x01 主->从 LED亮；</p>
+<p>0x02 主->从 LED灭；</p>
+<p>0x03 主->从 0xXX； 0xXX取1~9999，表示闪烁周期从1s~9999s</p>
+<br/>
+
+<h3>DHT11控制指令</h3>
+<p>0x01 主->从 读温度指令；</p>
+<p>0x01 0xXX 从->主 从机返回温度值；</p>
+<p>0x02 主->从 读湿度指令；</p>
+<p>0x02 0xXX 从->主 从机返回湿度值；</p>
+<br/>
+
+<h3>Servo控制指令</h3>
+<p>0x01 0xXX 主->从 设置角度为0xXX；</p>
+<br/>
+
+<h3>HC-SR 04控制指令</h3>
+<p>0x01 主->从 读取距离指令；</p>
+<p>0x01 0xXX 从->主 返回测距结果;</p>
+<br/>
+
+</body>
+ 
+</html>

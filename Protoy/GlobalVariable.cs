@@ -43,6 +43,10 @@ namespace Protoy
         public const UInt16 Rec_GetTemp = 11;
         public const UInt16 Rec_GetHumi = 12;
 
+        public const UInt16 Rec_Servo = 13;
+
+        public const UInt16 Rec_Radar = 14;
+
         // The ZIndex to ensure the dragging item is on the top
         public const Int32 ZIndex_OnDragging = 255;
         // The number of anchors

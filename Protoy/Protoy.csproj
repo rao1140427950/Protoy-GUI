@@ -116,5 +116,8 @@
   <ItemGroup>
     <Resource Include="menu1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Orders.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
