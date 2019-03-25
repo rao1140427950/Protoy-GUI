@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="button.jpg" />
+    <Resource Include="button1.png" />
     <Content Include="Orders.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

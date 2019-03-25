@@ -116,13 +116,9 @@
                                                 <!--定义Grid第二列-->
                                             </Grid.ColumnDefinitions>
                                             <!--定义Image-->
-                                            
-                                            <Image Source="button.jpg" Height="20" Width="20" VerticalAlignment="Center">
-                                                <Image.OpacityMask>
-                                                    <ImageBrush ImageSource="button.jpg" />
-                                                </Image.OpacityMask>
-                                            </Image>
-                                         
+
+                                            <Image Source="button1.png" Height="20" Width="20" VerticalAlignment="Center"/>
+
                                             <!--定义ContentPresenter-->
                                             <ContentPresenter Grid.Column="1" Content="{TemplateBinding Content}" VerticalAlignment="Center"/>
                                         </Grid>
@@ -202,7 +198,7 @@
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
                                 <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
                                 <local:NewLabel IsHitTestVisible="False" Content="Delay" FontSize="14" Canvas.Top="2" Canvas.Left="10" Foreground="White" />
-                                <local:NewTextBox Canvas.Left="60" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="40" Height="20" 
+                                <local:NewTextBox Canvas.Left="68" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="40" Height="20" 
                                               MaxHeight="20" RegexString="^\d{1,4}$" DefaultText="0" BorderBrush="{x:Null}"/>
                                 <local:NewLabel IsHitTestVisible="False" Content="ms" FontSize="14" Canvas.Top="2" Canvas.Left="100" Foreground="White" />
                             </local:NewCanvas>
