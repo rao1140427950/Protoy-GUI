@@ -17,15 +17,15 @@
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="360*"/>
-            <ColumnDefinition Width="517*"/>
-            <ColumnDefinition Width="397*"/>
+            <ColumnDefinition Width="359*"/>
+            <ColumnDefinition Width="509*"/>
+            <ColumnDefinition Width="404*"/>
         </Grid.ColumnDefinitions>
         <Menu x:Name="Navbar" Height="40" VerticalAlignment="Top" Background="#D8BFD8" Grid.ColumnSpan="3" Margin="0,0,-6.4,0">
             <Menu.Resources>
 
                 <Style x:Key="ShiningMenuStyle" TargetType="{x:Type Border}">
-                    <Setter Property="Background" Value="#D15FEE"/>
+                    <Setter Property="Background" Value="#FFD15FEE"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Opacity" Value="0.7" />
@@ -40,8 +40,8 @@
                             <Border.Background>
                                 <!--定义圆角外边框背景-->
                                 <LinearGradientBrush StartPoint="0 0" EndPoint="1 1 " Opacity="0.8">
-                                    <GradientStop Color="#D15FEE" Offset="0.6"/>
-                                    <GradientStop Color="#FF6EB4" Offset="0.9"/>
+                                    <GradientStop Color="#FFD15FEE" Offset="0.6"/>
+                                    <GradientStop Color="#FFFF6EB4" Offset="0.9"/>
                                     <!--<GradientStop Color="	#FFF8DC" Offset="0.99"/>-->
                                 </LinearGradientBrush>
                             </Border.Background>
@@ -104,12 +104,12 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
                                     <!--定义圆角外边框-->
-                                    <Border Name="gridborder" BorderBrush="#87CEFA" BorderThickness="0"  CornerRadius="8" >
+                                    <Border Name="gridborder" BorderBrush="#FF87CEFA" BorderThickness="0"  CornerRadius="8" >
                                         <Border.Background>
                                             <!--定义圆角外边框背景-->
                                             <LinearGradientBrush StartPoint="0, 0" EndPoint="1, 1.2 " Opacity="0.6">
-                                                <GradientStop Color="#D15FEE" Offset="0.7"/>
-                                                <GradientStop Color="#FF6EB4" Offset="0.9"/>
+                                                <GradientStop Color="#FFD15FEE" Offset="0.7"/>
+                                                <GradientStop Color="#FFFF6EB4" Offset="0.9"/>
                                                 <!--<GradientStop Color="	#FFF8DC" Offset="0.99"/>-->
                                             </LinearGradientBrush>
                                         </Border.Background>
@@ -123,7 +123,7 @@
                                             </Grid.ColumnDefinitions>
                                             <!--定义Image-->
 
-                                            <Image Source="button1.png" Height="20" Width="20" VerticalAlignment="Center"/>
+                                            <Image Source="resource/button.png" Height="20" Width="20" VerticalAlignment="Center"/>
 
                                             <!--定义ContentPresenter-->
                                             <ContentPresenter Grid.Column="1" Content="{TemplateBinding Content}" VerticalAlignment="Center"/>
@@ -140,7 +140,7 @@
 
             <Button x:Name="Btn_ScanPort" FontSize="13" Content="检测端口" Height="28" Background="White" Width="85" Margin="0,5,0,0" Click="Btn_ScanPort_Click"/>
             <Button x:Name="Btn_ScanSerial" FontSize="13" Content="扫描外设" Height="28" Background="White" Width="85" Margin="0,5,0,0"/>
-            <Button x:Name="Btn_GenerateHex" FontSize="13" Content="编译程序" Height="28" Background="White" Width="85" Margin="0,5,0,0"/>
+            <Button x:Name="Btn_GenerateHex" FontSize="13" Content="编译程序" Height="28" Background="White" Width="85" Margin="0,5,0,0" Click="Btn_GenerateHex_Click"/>
             <Button x:Name="Btn_ClearCanvas2" FontSize="13" Content="清空程序" Height="28" Background="White" Width="85" Margin="0,5,0,0" Click="Btn_ClearCanvas2_Click"/>
         </Menu>
 
@@ -169,7 +169,7 @@
 
 
 
-            <Canvas  Margin="0,10,8,5" x:Name="Canvas1" Height="650" Width="370" Canvas.Left="0" Background="SeaShell" Canvas.Top="5">
+            <Canvas  Margin="0,0,0,0" x:Name="Canvas1" Height="650" Width="370" Canvas.Left="0" Background="SeaShell" Canvas.Top="5">
                 <ScrollViewer  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Width="370">
                     <Grid>
 
@@ -235,22 +235,22 @@
                             </Canvas>
                         </Border>
 
-                        <Border x:Name="LED_Border" Grid.Row="1" BorderBrush="#FFC125" BorderThickness="1.6" Height="120" Width="345" Canvas.Left="5" Canvas.Top="210">
+                        <Border x:Name="LED_Border" Grid.Row="1" BorderBrush="#FFFFC125" BorderThickness="1.6" Height="120" Width="345" Canvas.Left="5" Canvas.Top="210">
                             <Canvas x:Name="Group_LED" Background="	Cornsilk"   Margin="0,0,0,0" Height="117" VerticalAlignment="Top">
-                                <Label x:Name="Label_LED" Content=" LED"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FFC125"/>
+                                <Label x:Name="Label_LED" Content=" LED"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FFFFC125"/>
 
                                 <local:NewCanvas x:Name="Rec_LEDON" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="8" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFFC125">
                                     <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFFC125"/>
                                     <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="40" Canvas.Top="8" Width="80">LED On</local:NewTextBlock>
                                 </local:NewCanvas>
                                 <local:NewCanvas x:Name="Rec_LEDOFF" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Index="9" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFFC125">
                                     <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFFC125"/>
                                     <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="50" Canvas.Top="8">LED Off</local:NewTextBlock>
                                 </local:NewCanvas>
                                 <local:NewCanvas x:Name="LED_Blink" Height="32" Canvas.Left="10" Canvas.Top="80" Width="150" Index="10"
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFFC125">
                                     <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFFC125"/>
                                     <local:NewLabel IsHitTestVisible="False" Content="Blink T = " FontSize="14" Canvas.Top="2" Canvas.Left="17.5" Foreground="White" />
                                     <local:NewTextBox Canvas.Left="90" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
@@ -260,29 +260,29 @@
                             </Canvas>
                         </Border>
 
-                        <Border x:Name="DHT11_Border" Grid.Row="2" BorderBrush="	#FF8C00" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="340">
+                        <Border x:Name="DHT11_Border" Grid.Row="2" BorderBrush="#FFFF8C00" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="340">
                             <Canvas x:Name="Group_DHT11" Background="#FFE4C4" Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
-                                <Label x:Name="Label_DHT11" Content=" DHT11"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FF7F24"/>
+                                <Label x:Name="Label_DHT11" Content=" DHT11"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FFFF7F24"/>
 
                                 <local:NewCanvas x:Name="Rec_GetTemp" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="11" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF7F24">
                                     <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FF7F24"/>
                                     <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Get temperature</local:NewTextBlock>
                                 </local:NewCanvas>
                                 <local:NewCanvas x:Name="Rec_GetHumi" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Index="12" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF7F24">
                                     <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FF7F24"/>
                                     <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="34" Canvas.Top="8">Get humidity</local:NewTextBlock>
                                 </local:NewCanvas>
                             </Canvas>
                         </Border>
 
-                        <Border x:Name="Servo_Border"  Grid.Row="3" BorderBrush="#00B2EE" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="430">
+                        <Border x:Name="Servo_Border"  Grid.Row="3" BorderBrush="#FF00B2EE" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="430">
                             <Canvas x:Name="Group_Servo" Background="#D1EEEE" Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
-                                <Label x:Name="Label_Servo" Content=" Servo"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#00B2EE"/>
+                                <Label x:Name="Label_Servo" Content=" Servo"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FF00B2EE"/>
 
                                 <local:NewCanvas x:Name="Rec_Servo" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="13" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FF00B2EE">
                                     <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#00B2EE"/>
                                     <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Set angle to</local:NewTextBlock>
                                     <local:NewTextBox Canvas.Left="109" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
@@ -291,12 +291,12 @@
                             </Canvas>
                         </Border>
 
-                        <Border x:Name="Radar_Border" Grid.Row="4" BorderBrush="#00CD66" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="520">
+                        <Border x:Name="Radar_Border" Grid.Row="4" BorderBrush="#FF00CD66" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="520">
                             <Canvas x:Name="Group_Radar" Background="#C1FFC1" Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
-                                <Label x:Name="Label_Radar" Content=" HC-SR 04"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#00CD66"/>
+                                <Label x:Name="Label_Radar" Content=" HC-SR 04"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FF00CD66"/>
 
                                 <local:NewCanvas x:Name="Rec_Radar" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="14" 
-                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A">
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FF00CD66">
                                     <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#00CD66"/>
                                     <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="34" Canvas.Top="8">Get distance</local:NewTextBlock>
                                 </local:NewCanvas>

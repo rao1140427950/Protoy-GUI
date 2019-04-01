@@ -51,6 +51,11 @@ namespace Protoy
         public const Int32 ZIndex_OnDragging = 255;
         // The number of anchors
         public const Int32 AnchorNum = 4;
+
+        // Ouput folder path
+        public static string Output_Path = @"E:\Visual Studio 2017\Projects\Protoy\Protoy-GUI\Protoy\resource\";
+
+        public const Double YPosOffset_OnDragging = 5;
     }
 
     // Bias for making anchor
