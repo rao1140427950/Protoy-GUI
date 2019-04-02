@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,8 +44,6 @@ namespace Protoy
         // private UInt16 IndentCounter = 0;
         // Serial port
         private Serial serial;
-        // list to record NewCanvas
-        private List<NewCanvas> NewCanvasList;
 
         public MainWindow()
         {
@@ -56,20 +53,17 @@ namespace Protoy
 
         private void InitializeVariables()
         {
-            // Initialize anchor point
+            // Initial anchor point
             Anchor[0] = new Point(0, 0);
             Anchor[1] = new Point(0, 0);
             Anchor[2] = new Point(0, 0);
             Anchor[3] = new Point(0, 0);
-            // Initialize RecPos
+            // Initial RecPos
             RecPos = new Point(0, 0);
             // Initial pos delta
 
-            // Initialize serial
+            // Initial serial
             serial = new Serial();
-
-            // Initialize NewCanvasList
-            NewCanvasList = new List<NewCanvas>();
         }
 
         // Choose path for C51 compiler 
@@ -114,7 +108,7 @@ namespace Protoy
             RecPos.X = (Double)DraggedItem.GetValue(Canvas.LeftProperty) +
                 (Double)canvas.Parent.GetValue(Canvas.LeftProperty) + (Double)Canvas1.GetValue(Canvas.LeftProperty);
             RecPos.Y = (Double)DraggedItem.GetValue(Canvas.TopProperty) +
-                (Double)canvas.Parent.GetValue(Canvas.TopProperty) + (Double)Canvas1.GetValue(Canvas.TopProperty) + Define.YPosOffset_OnDragging;
+                (Double)canvas.Parent.GetValue(Canvas.TopProperty) + (Double)Canvas1.GetValue(Canvas.TopProperty);
             DraggedItem.SetValue(Canvas.TopProperty, RecPos.Y);
             DraggedItem.SetValue(Canvas.LeftProperty, RecPos.X);
             //Console.WriteLine("(x, y) = (" + RecPos.X + ", " + RecPos.Y + ")");
@@ -152,11 +146,8 @@ namespace Protoy
                 if (IsEmpty) IsEmpty = false;
                 RootCanvas.Children.Remove(DraggedItem);
                 Canvas2.Children.Add(DraggedItem);
-                Console.WriteLine(DateTime.Now.ToString() + " : Move <" + DraggedItem.Name + "> to <Canvas2>");
 
-                DraggedItem.AnchorPointType = AnchorIndex;
-                NewCanvasList.Add(DraggedItem);
-                Console.WriteLine(DateTime.Now.ToString() + " : Add <" + DraggedItem.Name + "> to List");
+                Console.WriteLine(DateTime.Now.ToString() + " : Move <" + DraggedItem.Name + "> to <Canvas2>");
 
                 // If is not anchored at the right anchor point
                 if (AnchorIndex != (Define.AnchorNum - 1))
@@ -265,40 +256,7 @@ namespace Protoy
         {
             Canvas2.Children.Clear();
             IsEmpty = true;
-            NewCanvasList.Clear();
-            Console.WriteLine(DateTime.Now.ToString() + " : Clear Canvas2 and List");
         }
-
-        private static void AddText(FileStream fs, string value)
-        {
-            byte[] info = new UTF8Encoding(true).GetBytes(value);
-            fs.Write(info, 0, info.Length);
-        }
-
-        private void Btn_GenerateHex_Click(object sender, RoutedEventArgs e)
-        {
-            string path = Define.Output_Path + "main.txt";
-
-            // Delete the file if it exists.
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-
-            //Create the file.
-            using (FileStream fs = File.Create(path))
-            {
-                foreach (NewCanvas temp in NewCanvasList)
-                {
-                    AddText(fs, temp.GetCode());
-                    //Console.WriteLine(DateTime.Now.ToString() + " : " + temp.Name);
-                }
-            }
-
-            Console.WriteLine(DateTime.Now.ToString() + " : Source code file created");
-        }
-
-        
     }
 
 }

@@ -102,7 +102,29 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resource\button.png" />
+    <Resource Include="basic_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="basic-background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="menu-background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="menu1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="slogan1.png" />
+    <Resource Include="button.jpg" />
+    <Resource Include="button1.png" />
+    <Resource Include="Logosc_14746411554181909.png" />
+    <Resource Include="Logosc_14746411554181949.png" />
+    <Resource Include="logoblack.png" />
+    <Resource Include="logopp.png" />
+    <Resource Include="logotest.png" />
     <Content Include="Orders.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
