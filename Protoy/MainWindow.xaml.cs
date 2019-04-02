@@ -154,6 +154,7 @@ namespace Protoy
                 Canvas2.Children.Add(DraggedItem);
                 Console.WriteLine(DateTime.Now.ToString() + " : Move <" + DraggedItem.Name + "> to <Canvas2>");
 
+                DraggedItem.AnchorPointType = AnchorIndex;
                 NewCanvasList.Add(DraggedItem);
                 Console.WriteLine(DateTime.Now.ToString() + " : Add <" + DraggedItem.Name + "> to List");
 
@@ -289,7 +290,7 @@ namespace Protoy
             {
                 foreach (NewCanvas temp in NewCanvasList)
                 {
-                    AddText(fs, temp.Name + "\r\n");
+                    AddText(fs, temp.GetCode());
                     //Console.WriteLine(DateTime.Now.ToString() + " : " + temp.Name);
                 }
             }

@@ -35,6 +35,7 @@ namespace Protoy
         public const UInt16 Rec_Assign = 5;
         public const UInt16 Rec_If = 6;
         public const UInt16 Rec_Else = 7;
+        public const UInt16 Rec_End = 15;
 
         public const UInt16 Rec_LEDON = 8;
         public const UInt16 Rec_LEDOFF = 9;
@@ -69,6 +70,11 @@ namespace Protoy
         // Bias for anchor radius
         public const Double AnchorRadius = 10;
 
+        // Anchor type
+        public const ushort AnchorType_RightBelow = 1;  
+        public const ushort AnchorType_IndentLeft = 0;  
+        public const ushort AnchorType_IndentRight = 2;  
+        public const ushort AnchorType_RightBack = 3;  
     }
 
     // Colors
