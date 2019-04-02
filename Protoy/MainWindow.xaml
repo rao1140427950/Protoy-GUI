@@ -108,7 +108,7 @@
                     </ImageBrush>
                 </MenuItem.Background>
             </MenuItem>
-            <MenuItem Width="5"/>
+            <MenuItem Width="11"/>
             <MenuItem x:Name="Nav_File" Header="File" Height="40" Width="125" Foreground="White" FontSize="14" 
                       Template="{StaticResource MenuItemBorderTemplate}" >
                 <MenuItem x:Name="Nav_File_New" Header="New" Cursor="Hand"  Background="#FFD8BFD8"/>
