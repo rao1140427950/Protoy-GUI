@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Protoy"
         mc:Ignorable="d"
-        Title="Protoy IDE" Height="720" Width="1280">
+        Title="Protoy IDE" Height="720" Width="1280" Icon="resource/logo.ico">
 
     <Window.Background>
         <ImageBrush/>
@@ -79,6 +79,36 @@
                 </ControlTemplate>
 
             </Menu.Resources>
+
+            <MenuItem x:Name="Nac_Logo" Width="50" >
+                <MenuItem.Background>
+                    <ImageBrush ImageSource="resource/logotest.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.82" ScaleY="0.95"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </MenuItem.Background>
+            </MenuItem>
+            <MenuItem x:Name="Nac_slogan" Width=" 140">
+                <MenuItem.Background>
+                    <ImageBrush ImageSource="resource/slogan1.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleY="0.85" ScaleX="0.92"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform Y="0" X="0"/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </MenuItem.Background>
+            </MenuItem>
+            <MenuItem Width="11"/>
 
             <MenuItem x:Name="Nav_File" Header="File" Height="40" Width="125" Foreground="White" FontSize="14" 
                       Template="{StaticResource MenuItemBorderTemplate}" >

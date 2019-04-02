@@ -102,6 +102,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="resource\logo.ico" />
+    <Resource Include="resource\logotest.png" />
+    <Resource Include="resource\slogan1.png" />
     <Resource Include="resource\button.png" />
     <Content Include="Orders.html" />
   </ItemGroup>
