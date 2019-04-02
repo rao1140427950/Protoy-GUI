@@ -21,7 +21,7 @@
             <ColumnDefinition Width="509*"/>
             <ColumnDefinition Width="404*"/>
         </Grid.ColumnDefinitions>
-        <Menu x:Name="Navbar" Height="40" VerticalAlignment="Top" Background="#D8BFD8" Grid.ColumnSpan="3" Margin="0,0,-6.4,0">
+        <Menu x:Name="Navbar" Height="60" VerticalAlignment="Top" Background="#D8BFD8" Grid.ColumnSpan="3" Margin="0,0,-6.4,0">
             <Menu.Resources>
 
                 <Style x:Key="ShiningMenuStyle" TargetType="{x:Type Border}">
@@ -34,9 +34,13 @@
                 </Style>
 
                 <ControlTemplate x:Key="MenuItemBorderTemplate" TargetType="{x:Type MenuItem}">
-                    <Grid>
-                        <Border Style="{StaticResource ShiningMenuStyle}" BorderBrush="Plum" BorderThickness="1" Height="40" Width="{TemplateBinding Width}" 
-                                CornerRadius="20,20,1,1"  Cursor="Hand" >
+                    <Grid Margin="0,15,0,1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="14*"/>
+                            <RowDefinition Height="19*"/>
+                        </Grid.RowDefinitions>
+                        <Border Style="{StaticResource ShiningMenuStyle}" BorderBrush="Plum" BorderThickness="1" Height="Auto" Width="{TemplateBinding Width}" 
+                                CornerRadius="20,20,1,1"  Cursor="Hand" Margin="0,0,0,0" Grid.RowSpan="2" >
                             <Border.Background>
                                 <!--定义圆角外边框背景-->
                                 <LinearGradientBrush StartPoint="0 0" EndPoint="1 1 " Opacity="0.8">
@@ -48,19 +52,19 @@
                         </Border>
 
                         <TextBlock Text="{TemplateBinding Header}" IsHitTestVisible="False"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="Auto"  Width="73.696" Grid.RowSpan="2" Margin="0,0,0,8"/>
                         <Popup
               x:Name="SubMenuPopup"
               Focusable="false"
               IsOpen="{Binding Path=IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
               Placement="Bottom"
-              PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
+              PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" Margin="0,0,0,0" Grid.RowSpan="2">
 
                             <!--  边框颜色改在下面的BorderBrush  -->
                             <Border
                 Padding="0"
                 Background="White"
-                BorderBrush="Brown"
+                BorderBrush="#FFFF6EB4" Opacity=" 50"
                 BorderThickness="1">
                                 <Border
                   Padding="0"
@@ -71,8 +75,6 @@
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                                     </Grid>
                                 </Border>
-
-
                             </Border>
                         </Popup>
                     </Grid>
@@ -80,61 +82,68 @@
 
             </Menu.Resources>
 
-            <MenuItem x:Name="Nac_Logo" Width="50" >
-                <MenuItem.Background>
+            <Border x:Name="Nac_Logo" Width="60" Height="60" >
+                <Border.Background>
                     <ImageBrush ImageSource="resource/logotest.png">
                         <ImageBrush.RelativeTransform>
                             <TransformGroup>
-                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.82" ScaleY="0.95"/>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleY="0.93"/>
                                 <SkewTransform CenterY="0.5" CenterX="0.5"/>
                                 <RotateTransform CenterY="0.5" CenterX="0.5"/>
                                 <TranslateTransform/>
                             </TransformGroup>
                         </ImageBrush.RelativeTransform>
                     </ImageBrush>
-                </MenuItem.Background>
-            </MenuItem>
-            <MenuItem x:Name="Nac_slogan" Width=" 140">
-                <MenuItem.Background>
+                </Border.Background>
+            </Border>
+            <Border x:Name="Nac_slogan" Width=" 200" Height="60">
+                <Border.Background>
                     <ImageBrush ImageSource="resource/slogan1.png">
                         <ImageBrush.RelativeTransform>
                             <TransformGroup>
-                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleY="0.85" ScaleX="0.92"/>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleY="0.75" ScaleX="0.88"/>
                                 <SkewTransform CenterY="0.5" CenterX="0.5"/>
                                 <RotateTransform CenterY="0.5" CenterX="0.5"/>
-                                <TranslateTransform Y="0" X="0"/>
+                                <TranslateTransform Y="0.07" X="-0.05"/>
                             </TransformGroup>
                         </ImageBrush.RelativeTransform>
                     </ImageBrush>
-                </MenuItem.Background>
-            </MenuItem>
-            <MenuItem Width="11"/>
+                </Border.Background>
+            </Border>
+            <MenuItem Width="10"/>
 
-            <MenuItem x:Name="Nav_File" Header="File" Height="40" Width="125" Foreground="White" FontSize="14" 
+            <MenuItem x:Name="Nav_File" Header="     File" Height="60" Width="134" Foreground="White" FontSize="17" 
                       Template="{StaticResource MenuItemBorderTemplate}" >
-                <MenuItem x:Name="Nav_File_New" Header="New" Cursor="Hand"  Background="#FFD8BFD8"/>
-                <MenuItem x:Name="Nav_File_Open" Header="Open" Cursor="Hand" Background="#FFD8BFD8"/>
-                <MenuItem x:Name="Nav_File_Save" Header="Save" Cursor="Hand" Background="#FFD8BFD8"/>
+                <MenuItem x:Name="Nav_File_New" Header="New" Cursor="Hand"  Background="#FFD8BFD8"   VerticalAlignment="Center" />
+                <MenuItem x:Name="Nav_File_Open" Header="Open" Cursor="Hand" Background="#FFD8BFD8"  VerticalAlignment="Center"/>
+                <MenuItem x:Name="Nav_File_Save" Header="Save" Cursor="Hand" Background="#FFD8BFD8" VerticalAlignment="Center" />
             </MenuItem>
-            <MenuItem x:Name="Nav_Settings" Header=" Settings" Foreground="White"  Width="125" FontSize="14" 
+            <MenuItem x:Name="Nav_Settings" Header=" Settings" Height="60" Foreground="White"  Width="125" FontSize="17" 
                       Template="{StaticResource MenuItemBorderTemplate}">
-                <MenuItem x:Name="Nav_Settings_Port" Header="Port" Cursor="Hand" Background="#FFD8BFD8">
+                <MenuItem x:Name="Nav_Settings_Port" Header="Port" Cursor="Hand" Background="#FFD8BFD8"  VerticalAlignment="Center">
                     <!--MenuItem Header="COM1" Cursor="Hand" Background="#FFD8BFD8"/-->
                 </MenuItem>
-                <MenuItem x:Name="Nav_Settings_C51" Header="C51" Cursor="Hand" Background="#FFD8BFD8" Click="Nav_Settings_C51_Click"/>
+                <MenuItem x:Name="Nav_Settings_C51" Header="C51" Cursor="Hand" Background="#FFD8BFD8" Click="Nav_Settings_C51_Click" VerticalAlignment="Center"/>
             </MenuItem>
         </Menu>
 
 
-        <Menu x:Name="Nav_ButtonGroup" Grid.Column="2" Height="40"  VerticalAlignment="Top" Background="#D8BFD8">
+        <Menu x:Name="Nav_ButtonGroup" Grid.Column="2" Height="60"  VerticalAlignment="Top" Background="#D8BFD8">
             <Menu.Resources>
                 <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </Style.Triggers>
                     <Style.Setters>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
                                     <!--定义圆角外边框-->
+                                    
                                     <Border Name="gridborder" BorderBrush="#FF87CEFA" BorderThickness="0"  CornerRadius="8" >
+                                        
                                         <Border.Background>
                                             <!--定义圆角外边框背景-->
                                             <LinearGradientBrush StartPoint="0, 0" EndPoint="1, 1.2 " Opacity="0.6">
@@ -167,14 +176,15 @@
 
             </Menu.Resources>
 
-
-            <Button x:Name="Btn_ScanPort" FontSize="13" Content="检测端口" Height="28" Background="White" Width="85" Margin="0,5,0,0" Click="Btn_ScanPort_Click"/>
-            <Button x:Name="Btn_ScanSerial" FontSize="13" Content="扫描外设" Height="28" Background="White" Width="85" Margin="0,5,0,0"/>
-            <Button x:Name="Btn_GenerateHex" FontSize="13" Content="编译程序" Height="28" Background="White" Width="85" Margin="0,5,0,0" Click="Btn_GenerateHex_Click"/>
-            <Button x:Name="Btn_ClearCanvas2" FontSize="13" Content="清空程序" Height="28" Background="White" Width="85" Margin="0,5,0,0" Click="Btn_ClearCanvas2_Click"/>
+            <Border>
+            <Button x:Name="Btn_ScanPort" FontSize="13" Content="检测端口"  Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_ScanPort_Click"></Button>
+            </Border>
+            <Button x:Name="Btn_ScanSerial" FontSize="13" Content="扫描外设" Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_ScanPort_Click"/>
+            <Button x:Name="Btn_GenerateHex" FontSize="13" Content="编译程序" Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_GenerateHex_Click"/>
+            <Button x:Name="Btn_ClearCanvas2" FontSize="13" Content="清空程序" Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_ClearCanvas2_Click"/>
         </Menu>
 
-        <Canvas x:Name="RootCanvas" Margin="0,40,-6.4,0" Background="SeaShell" Grid.ColumnSpan="3" Grid.RowSpan="2">
+        <Canvas x:Name="RootCanvas" Margin="0,60,-6.4,0" Background="SeaShell" Grid.ColumnSpan="3" Grid.RowSpan="2">
 
             <Canvas.Resources>
                 <Style x:Key="ShiningBorderStyle" TargetType="{x:Type Border}">
@@ -194,10 +204,6 @@
 
 
             </Canvas.Resources>
-
-
-
-
 
             <Canvas  Margin="0,0,0,0" x:Name="Canvas1" Height="650" Width="370" Canvas.Left="0" Background="SeaShell" Canvas.Top="5">
                 <ScrollViewer  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Width="370">
@@ -346,7 +352,7 @@
 
 
             <GridSplitter x:Name="RootGridSplitter" Height="650" Background="SeaShell" Width="3" HorizontalAlignment="Left" Canvas.Left="355"/>
-            <Canvas x:Name="Canvas2" Height="650.667" Width="910" Canvas.Left="375" Background="SeaShell" Canvas.Top="-0.667" />
+            <Canvas x:Name="Canvas2" Height="649.333" Width="910" Canvas.Left="375" Background="SeaShell" />
 
         </Canvas>
     </Grid>
