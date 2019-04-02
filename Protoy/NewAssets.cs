@@ -17,7 +17,55 @@ namespace Protoy
     {
         public ushort Index { get; set; }  // Indicate the index of the object in its type
         public SolidColorBrush ThemeColor { get; set; }  // Theme coler, for backgroud and text
-        //public ushort AnchorPointType;
+        public int AnchorPointType { get; set; }  // Anchor point type
+
+        public string Code_Prefix { get; set; }
+        public string Code_Suffix { get; set; }
+        public ushort Device_Addr { get; set; }
+
+        public NewCanvas()
+        {
+            Device_Addr = 0;
+        }
+
+        public string GetCode()
+        {
+            NewTextBox newTextBox = new NewTextBox();
+            string Code = "";
+            //newTextBox.Text = "";
+
+            for (int i = 0; i < this.Children.Count; i++)
+            {
+                if (this.Children[i] is NewTextBox)
+                {
+                    newTextBox = (NewTextBox)this.Children[i];
+                    break;
+                }
+            }
+
+            if (Device_Addr > 0)
+            {
+                if (newTextBox.TextAvailable())
+                    Code = Code_Prefix + " " + Device_Addr.ToString() + "," + newTextBox.Text + " " + Code_Suffix + "\r\n";
+                else
+                    Code = Code_Prefix + " " + Device_Addr.ToString() + " " + Code_Suffix + "\r\n";
+            }
+            else
+            {
+                if (newTextBox.TextAvailable())
+                    Code = Code_Prefix + " " + newTextBox.Text + " " + Code_Suffix + "\r\n";
+                else
+                    Code = Code_Prefix + " " + Code_Suffix + "\r\n";
+            }
+
+            if (AnchorPointType == Anchors.AnchorType_IndentRight)
+                Code = "{\r\n" + Code;
+            else if (AnchorPointType == Anchors.AnchorType_IndentLeft)
+                Code = "\r\n}" + Code;
+
+            return Code;
+        }
+            
 
         // Generate deep copies
         public NewCanvas Clone()
@@ -32,6 +80,9 @@ namespace Protoy
             temp.Width = this.Width;
             temp.Cursor = this.Cursor;
             temp.ThemeColor = this.ThemeColor;
+            temp.Code_Prefix = this.Code_Prefix;
+            temp.Code_Suffix = this.Code_Suffix;
+            temp.Device_Addr = this.Device_Addr;
             //temp.Background = this.Background;
             temp.SetValue(Canvas.LeftProperty, this.GetValue(Canvas.LeftProperty));
             temp.SetValue(Canvas.TopProperty, this.GetValue(Canvas.TopProperty));
@@ -160,6 +211,11 @@ namespace Protoy
             IsDefaultText = true;
             Foreground = MyColors.Gray;
             //Text = DefaultText;
+        }
+
+        public bool TextAvailable()
+        {
+            return !IsDefaultText;
         }
 
         // Generate deep copies
