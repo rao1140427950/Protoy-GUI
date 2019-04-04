@@ -75,6 +75,7 @@ namespace Protoy
         public const ushort AnchorType_IndentLeft = 0;  
         public const ushort AnchorType_IndentRight = 2;  
         public const ushort AnchorType_RightBack = 3;  
+        public const ushort AnchorType_FirstBlock = 4;  
     }
 
     // Colors

@@ -352,7 +352,7 @@
 
 
             <GridSplitter x:Name="RootGridSplitter" Height="650" Background="SeaShell" Width="3" HorizontalAlignment="Left" Canvas.Left="355"/>
-            <Canvas x:Name="Canvas2" Height="649.333" Width="910" Canvas.Left="375" Background="SeaShell" />
+            <Canvas x:Name="Canvas2" Height="649.333" Width="910" Canvas.Left="375" Canvas.Top="5" Background="SeaShell" />
 
         </Canvas>
     </Grid>

@@ -111,6 +111,7 @@ namespace Protoy
             // Move clone to RootCanvas
             // Group_Basic.Children.Add(DraggedItem);
             var canvas = temp.Parent as Canvas;
+            //var grid = canvas.Parent as Border;
             RecPos.X = (Double)DraggedItem.GetValue(Canvas.LeftProperty) +
                 (Double)canvas.Parent.GetValue(Canvas.LeftProperty) + (Double)Canvas1.GetValue(Canvas.LeftProperty);
             RecPos.Y = (Double)DraggedItem.GetValue(Canvas.TopProperty) +
@@ -149,12 +150,19 @@ namespace Protoy
             if (IsInArea && (IsEmpty || IsAnchored))
             {
                 // Add to Canvas2
-                if (IsEmpty) IsEmpty = false;
+                if (IsEmpty)
+                {
+                    IsEmpty = false;
+                    DraggedItem.AnchorPointType = Anchors.AnchorType_FirstBlock;
+                }
+                else
+                {
+                    DraggedItem.AnchorPointType = AnchorIndex;
+                }
                 RootCanvas.Children.Remove(DraggedItem);
                 Canvas2.Children.Add(DraggedItem);
                 Console.WriteLine(DateTime.Now.ToString() + " : Move <" + DraggedItem.Name + "> to <Canvas2>");
 
-                DraggedItem.AnchorPointType = AnchorIndex;
                 NewCanvasList.Add(DraggedItem);
                 Console.WriteLine(DateTime.Now.ToString() + " : Add <" + DraggedItem.Name + "> to List");
 
@@ -266,6 +274,10 @@ namespace Protoy
             Canvas2.Children.Clear();
             IsEmpty = true;
             NewCanvasList.Clear();
+            Anchor[0] = new Point(0, 0);
+            Anchor[1] = new Point(0, 0);
+            Anchor[2] = new Point(0, 0);
+            Anchor[3] = new Point(0, 0);
             Console.WriteLine(DateTime.Now.ToString() + " : Clear Canvas2 and List");
         }
 
