@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace Protoy
 {
@@ -82,7 +83,7 @@ namespace Protoy
                 Config.C51_path = openFileDialog.SelectedPath;
                 Config.C51_diskname = Config.C51_path.Split(':')[0];
                 Config.C51_folder = Config.C51_path.Split(':')[1].Remove(0, 1);
-                System.Windows.MessageBox.Show(Config.C51_diskname+'\n'+Config.C51_folder);
+                //System.Windows.MessageBox.Show(Config.C51_diskname+'\n'+Config.C51_folder);
             }
         }
 
@@ -241,6 +242,7 @@ namespace Protoy
             }
         }
 
+        /*
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Serial serial = new Serial();
@@ -250,6 +252,7 @@ namespace Protoy
             //string temp = serial.ReadTest();
             //Console.WriteLine(DateTime.Now.ToString() + " : " + temp);
         }
+        */
 
         private void Btn_ScanPort_Click(object sender, RoutedEventArgs e)
         {
@@ -290,11 +293,22 @@ namespace Protoy
         private void Btn_GenerateHex_Click(object sender, RoutedEventArgs e)
         {
             string path = Define.Output_Path + "main.txt";
+            string prefix_path = Define.Output_Path + "prefix.txt";
+            string suffix_path = Define.Output_Path + "suffix.txt";
+            string output_path = Define.Output_Path + "main.c";
+            string obj_path = "";
+            string a, b, c;
 
             // Delete the file if it exists.
             if (File.Exists(path))
             {
                 File.Delete(path);
+            }
+
+            if (!File.Exists(prefix_path) || !File.Exists(suffix_path))
+            {
+                Console.WriteLine(DateTime.Now.ToString() + " : File not found.");
+                return;
             }
 
             //Create the file.
@@ -307,10 +321,111 @@ namespace Protoy
                 }
             }
 
+            a = File.ReadAllText(prefix_path);
+            b = File.ReadAllText(path);
+            c = File.ReadAllText(suffix_path);
+            File.WriteAllText(output_path, a + b + c);
+
+            obj_path += ("," + Define.Output_Path + "bmp180.obj");
+            obj_path += ("," + Define.Output_Path + "dht11.obj");
+            obj_path += ("," + Define.Output_Path + "eeprom.obj");
+            obj_path += ("," + Define.Output_Path + "hcsr04.obj");
+            obj_path += ("," + Define.Output_Path + "led.obj");
+            obj_path += ("," + Define.Output_Path + "protocol.obj");
+            obj_path += ("," + Define.Output_Path + "servo.obj");
+            obj_path += ("," + Define.Output_Path + "motor.obj");
+
+
+            Process p = new Process();
+            p.StartInfo.FileName = "cmd.exe"; //命令
+            p.StartInfo.UseShellExecute = false; //不启用shell启动进程
+            p.StartInfo.RedirectStandardInput = true; // 重定向输入
+            p.StartInfo.RedirectStandardOutput = true; // 重定向标准输出
+            p.StartInfo.RedirectStandardError = true; // 重定向错误输出 
+            p.StartInfo.CreateNoWindow = true; // 不创建新窗口
+            p.Start();
+
+            Console.WriteLine(Config.C51_diskname);
+            Console.WriteLine(Config.C51_folder);
+            Console.WriteLine(Config.C51_path);
+            p.StandardInput.WriteLine(Config.C51_diskname + ":");
+            p.StandardInput.WriteLine("cd " + Config.C51_folder);
+            p.StandardInput.WriteLine("C51.EXE " + Define.Output_Path + "main.c");
+            //Console.WriteLine(p.StandardOutput.ReadToEnd());
+            p.StandardInput.WriteLine("BL51.EXE " + Define.Output_Path + "main.obj" + obj_path + " TO " + Define.Output_Path + "main");
+            //Console.WriteLine(p.StandardOutput.ReadToEnd());
+            p.StandardInput.WriteLine("OH51.EXE " + Define.Output_Path + "main");
+            //Console.WriteLine(p.StandardOutput.ReadToEnd());
+            //p.StandardInput.WriteLine(command); //cmd执行的语句
+            //Console.WriteLine(p.StandardOutput.ReadToEnd()); //读取命令执行信息
+            p.StandardInput.WriteLine("exit"); //退出
+
             Console.WriteLine(DateTime.Now.ToString() + " : Source code file created");
         }
 
-        
+        private void Btn_ScanSerial_Click(object sender, RoutedEventArgs e)
+        {
+            Byte[] buffer = new byte[Define.MAX_PERIPHERAL];
+
+            serial.Open();
+            buffer[0] = 0x30;
+            // Get peripheral list
+            serial.WriteBytes(buffer, 1);
+            serial.ReadBytes(buffer, Define.MAX_PERIPHERAL);
+            LED_Border.Opacity = Define.Disable_Opacity;
+            DHT11_Border.Opacity = Define.Disable_Opacity;
+            Servo_Border.Opacity = Define.Disable_Opacity;
+            Pressure_Border.Opacity = Define.Disable_Opacity;
+            Motor_Border.Opacity = Define.Disable_Opacity;
+            for(int i = 0; i < Define.MAX_PERIPHERAL; i++)
+            {
+                switch(buffer[i])
+                {
+                    case Labels.LED_Label:
+                        LED_Border.Opacity = 1;
+                        foreach(var newCanvas in Group_LED.Children)
+                        {
+                            if (newCanvas is NewCanvas)
+                                ((NewCanvas)newCanvas).Device_Addr = (ushort)i;
+                        }
+                        break;
+                    case Labels.DHT11_Label:
+                        DHT11_Border.Opacity = 1;
+                        foreach (var newCanvas in Group_DHT11.Children)
+                        {
+                            if (newCanvas is NewCanvas)
+                                ((NewCanvas)newCanvas).Device_Addr = (ushort)i;
+                        }
+                        break;
+                    case Labels.Servo_Label:
+                        Servo_Border.Opacity = 1;
+                        foreach (var newCanvas in Group_Servo.Children)
+                        {
+                            if (newCanvas is NewCanvas)
+                                ((NewCanvas)newCanvas).Device_Addr = (ushort)i;
+                        }
+                        break;
+                    case Labels.BMP180_Label:
+                        Pressure_Border.Opacity = 1;
+                        foreach (var newCanvas in Group_Pressure.Children)
+                        {
+                            if (newCanvas is NewCanvas)
+                                ((NewCanvas)newCanvas).Device_Addr = (ushort)i;
+                        }
+                        break;
+                    case Labels.Motor_Label:
+                        Motor_Border.Opacity = 1;
+                        foreach (var newCanvas in Group_Motor.Children)
+                        {
+                            if (newCanvas is NewCanvas)
+                                ((NewCanvas)newCanvas).Device_Addr = (ushort)i;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
 }

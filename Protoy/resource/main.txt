@@ -1,10 +1,12 @@
-   
+  a =
+rd_temp( 4 );
+if ( a > 20 )
 {
-while( a>1 )
+led_on( 2 );
+
+}else  
 {
-led_on( );
-Delay_ms( 1000 );
+led_off( 2 );
 
 }   
-
-}   
+Delay_ms( 2000 );

@@ -25,6 +25,9 @@ namespace Protoy
             //serialPort = new SerialPort();
             serialPort.ReadTimeout = 1000;
             serialPort.WriteTimeout = 500;
+            PortName = DefaultPortName;
+            BaudRate = DefaultBaudRate;
+            Parity = DefaultParity;
         }
 
         ~Serial()
@@ -55,9 +58,9 @@ namespace Protoy
                 return false;
             }
 
-            PortName = DefaultPortName;
-            BaudRate = DefaultBaudRate;
-            Parity = DefaultParity;
+            //PortName = DefaultPortName;
+            //BaudRate = DefaultBaudRate;
+            //Parity = DefaultParity;
 
             serialPort.PortName = PortName;
             serialPort.BaudRate = BaudRate;
@@ -101,6 +104,7 @@ namespace Protoy
             //return serialPort.IsOpen;
         }
 
+        /*
         public string ReadTest()
         {
             Byte[] bytes = new Byte[10];
@@ -125,7 +129,94 @@ namespace Protoy
 
             return bytes.ToString();
         }
+        */
 
+        public int ReadBytes(Byte[] bytes, int n)
+        {
+            int num = 0;
+
+            if(!serialPort.IsOpen)
+            {
+                Console.WriteLine(DateTime.Now.ToString() + " : Failed to read port <" + serialPort.PortName + ">");
+                return 0;
+            }
+
+            try
+            {
+                Console.Write(DateTime.Now.ToString() + " : Read port <" + serialPort.PortName + "> : ");
+                num = serialPort.Read(bytes, 0, n);
+                for(int s = 0; s < n; s++)
+                {
+                    Console.Write(bytes[s]);
+                    Console.Write(" ");
+                }
+                Console.WriteLine();
+            }
+            catch (TimeoutException)
+            {
+                Console.WriteLine(DateTime.Now.ToString() + " : Failed to read port <" + serialPort.PortName + ">");
+                // TODO
+            }
+
+
+            return num;
+        }
+
+        public string ReadString()
+        {
+            string rst = "";
+
+            if (!serialPort.IsOpen)
+            {
+                Console.WriteLine(DateTime.Now.ToString() + " : Failed to read port <" + serialPort.PortName + ">");
+                return rst;
+            }
+
+            try
+            {
+                Console.Write(DateTime.Now.ToString() + " : Read port <" + serialPort.PortName + "> : ");
+                rst = serialPort.ReadExisting();
+                Console.Write(rst);
+                Console.WriteLine();
+            }
+            catch (TimeoutException)
+            {
+                Console.WriteLine(DateTime.Now.ToString() + " : Failed to read port <" + serialPort.PortName + ">");
+                // TODO
+            }
+
+            return rst;
+
+        }
+
+        public bool WriteBytes(Byte[] bytes, int n)
+        {
+            if (!serialPort.IsOpen)
+            {
+                Console.WriteLine(DateTime.Now.ToString() + " : Failed to write port <" + serialPort.PortName + ">");
+                return false;
+            }
+
+            try
+            {
+                serialPort.Write(bytes, 0, n);
+                Console.Write(DateTime.Now.ToString() + " : Write port <" + serialPort.PortName + "> : ");
+                for (int s = 0; s < n; s++)
+                {
+                    Console.Write(bytes[s]);
+                    Console.Write(" ");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+            catch (TimeoutException)
+            {
+                Console.WriteLine(DateTime.Now.ToString() + " : Failed to read port <" + serialPort.PortName + ">");
+                // TODO
+            }
+
+            return true;
+        }
 
     }
 }

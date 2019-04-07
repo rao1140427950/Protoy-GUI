@@ -1,0 +1,78 @@
+// Controller
+// @ 11.0592MHz
+#include "stc15fwxxx.h"
+#include "protocol.h"
+#include "eeprom.h"
+#include "intrins.h"
+#include "dht11.h"
+#include "servo.h"
+#include "led.h"
+#include "bmp180.h"
+//#include "instructions.h"
+
+//typedef unsigned int WORD;
+
+#define FOSC 11059200L          //系统频率
+#define BAUD 115200             //串口波特率
+
+#define NONE_PARITY     0       //无校验
+#define ODD_PARITY      1       //奇校验
+#define EVEN_PARITY     2       //偶校验
+#define MARK_PARITY     3       //标记校验
+#define SPACE_PARITY    4       //空白校验
+
+#define PARITYBIT EVEN_PARITY   //定义校验位
+
+#define S1_S0 0x40              //P_SW1.6
+#define S1_S1 0x80              //P_SW1.7
+
+#define MAX_PERIPHERALS 128     // This must be a bug...
+#define MAX_CHECKID 10          // This must be a bug...
+#define MAX_INSTRUCTIONS 10     // This must be a bug...
+
+bit busy;
+bit sndper = 0;
+
+uint8 xdata peripherals[MAX_PERIPHERALS];
+uint8 n = 0;
+uint8 dat[MAX_INSTRUCTIONS];
+uint8 myAddr = CONTROLLER_ADDR;
+
+uint16 a,b,c,x,y,z;
+
+void SendByte(uint8 dat);
+void SendString(char *s);
+void SendArray(uint8 *dat, uint8 n);
+void InitSystem();
+void ReloadPeripherals();
+void CheckPeripherals();
+void RefreshEEPROM();
+void BusDecode(uint8 *dat, uint8 n);
+void MountPeripheral(uint8 label);
+void Delay1000ms();
+void Delay_ms(uint16 n);
+
+
+void main()
+{
+    uint8 temp;
+
+    InitSystem();
+    //SendArray(peripherals, MAX_CHECKID);
+
+
+    while(1)
+    {   
+        if (sndper)
+        {
+            SendArray(peripherals, MAX_CHECKID);
+            sndper = 0;
+        }
+        n = BusRecieve(dat, myAddr, 10);
+        if(n > 0 && n < BROADCAST) // 如果收到非广播信号
+        {
+            //SendArray(dat, n);
+            BusDecode(dat, n);
+            //SendArray(peripherals, MAX_CHECKID);
+            //SendArray(dat, n);
+        }
