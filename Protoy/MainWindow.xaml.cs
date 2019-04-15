@@ -372,6 +372,15 @@ namespace Protoy
             // Get peripheral list
             serial.WriteBytes(buffer, 1);
             serial.ReadBytes(buffer, Define.MAX_PERIPHERAL);
+            
+            LED_Border.Opacity = 1;
+            DHT11_Border.Opacity = 1;
+            Servo_Border.Opacity = 1;
+            Pressure_Border.Opacity = 1;
+            Motor_Border.Opacity = 1;
+            
+            
+            /*
             LED_Border.Opacity = Define.Disable_Opacity;
             DHT11_Border.Opacity = Define.Disable_Opacity;
             Servo_Border.Opacity = Define.Disable_Opacity;
@@ -423,8 +432,9 @@ namespace Protoy
                         break;
                     default:
                         break;
-                }
+                    }
             }
+            */
         }
     }
 

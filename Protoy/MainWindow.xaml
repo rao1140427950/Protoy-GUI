@@ -141,9 +141,9 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
                                     <!--定义圆角外边框-->
-                                    
+
                                     <Border Name="gridborder" BorderBrush="#FF87CEFA" BorderThickness="0"  CornerRadius="8" >
-                                        
+
                                         <Border.Background>
                                             <!--定义圆角外边框背景-->
                                             <LinearGradientBrush StartPoint="0, 0" EndPoint="1, 1.2 " Opacity="0.6">
@@ -177,7 +177,7 @@
             </Menu.Resources>
 
             <Border>
-            <Button x:Name="Btn_ScanPort" FontSize="13" Content="检测端口"  Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_ScanPort_Click"></Button>
+                <Button x:Name="Btn_ScanPort" FontSize="13" Content="检测端口"  Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_ScanPort_Click"></Button>
             </Border>
             <Button x:Name="Btn_ScanSerial" FontSize="13" Content="扫描外设" Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_ScanSerial_Click"/>
             <Button x:Name="Btn_GenerateHex" FontSize="13" Content="编译程序" Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_GenerateHex_Click"/>
@@ -212,6 +212,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height=" 210"/>
                             <RowDefinition Height=" 130"/>
+                            <RowDefinition Height=" 90"/>
                             <RowDefinition Height=" 90"/>
                             <RowDefinition Height=" 90"/>
                             <RowDefinition Height=" 90"/>
@@ -355,6 +356,28 @@
                                     <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Set speed to</local:NewTextBlock>
                                     <local:NewTextBox Canvas.Left="109" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
                                               MaxHeight="20" RegexString="^.{1,3}$" DefaultText="0" BorderBrush="{x:Null}"/>
+                                </local:NewCanvas>
+                            </Canvas>
+                        </Border>
+
+                        <Border x:Name="Serial_Border" Grid.Row="6" BorderBrush="#FF966FFF" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="700">
+                            <Canvas x:Name="Serial_Motor" Background="#FFD1CFF7" Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
+                                <Label x:Name="Label_Serial" Content=" Serial"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FF766FFF"/>
+
+                                <local:NewCanvas x:Name="Rec_SerialString" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="17" 
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FF766FFF" Code_Prefix="set_speed(" Code_Suffix=");">
+                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FF766FFF"/>
+                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="10" Canvas.Top="8">Send string</local:NewTextBlock>
+                                    <local:NewTextBox Canvas.Left="88.737" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
+                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null" BorderBrush="{x:Null}" Width="40.263"/>
+                                </local:NewCanvas>
+
+                                <local:NewCanvas x:Name="Rec_SerialByte" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Index="17" 
+                                         MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FF766FFF" Code_Prefix="set_speed(" Code_Suffix=");">
+                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FF766FFF"/>
+                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Send byte</local:NewTextBlock>
+                                    <local:NewTextBox Canvas.Left="88.737" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
+                                              MaxHeight="20" RegexString="^.{1,20}$" DefaultText="Null" BorderBrush="{x:Null}" Width="40.263"/>
                                 </local:NewCanvas>
                             </Canvas>
                         </Border>
