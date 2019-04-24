@@ -102,10 +102,35 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="菜单栏.png" />
+    <Resource Include="slogan4.png" />
+    <Resource Include="slogan3.png" />
+    <Resource Include="slogan2.png" />
+    <Resource Include="slogan1.png" />
+    <Resource Include="slogan.png" />
+    <Resource Include="右上角四个图标1.png" />
+    <Resource Include="shutterstock_238275508.jpg" />
+    <Resource Include="右上角四个图标.png" />
+    <Resource Include="serial图标.png" />
+    <Resource Include="servo图标.png" />
+    <Resource Include="粉+阴影.png" />
+    <Resource Include="原版 - 副本.png" />
+    <Resource Include="pink.png" />
+    <Resource Include="puzzleblue.png" />
     <Resource Include="resource\logo.ico" />
     <Resource Include="resource\logotest.png" />
     <Resource Include="resource\slogan1.png" />
     <Resource Include="resource\button.png" />
+    <Resource Include="basic.png" />
+    <Resource Include="basic立体.png" />
+    <Resource Include="basic发光.png" />
+    <Resource Include="LED图标.png" />
+    <Resource Include="DHT11图标.png" />
+    <Resource Include="BMP180图标.png" />
+    <Resource Include="Motor.png" />
+    <Resource Include="logo.png" />
+    <Resource Include="kisspng-jigsaw-puzzles-clip-art-puzzle-background-5ada0d2c0f39c3.8680975615242396600624.jpg" />
+    <Resource Include="FILE.png" />
     <Content Include="Orders.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -39,15 +39,19 @@
                             <RowDefinition Height="14*"/>
                             <RowDefinition Height="19*"/>
                         </Grid.RowDefinitions>
-                        <Border Style="{StaticResource ShiningMenuStyle}" BorderBrush="Plum" BorderThickness="1" Height="Auto" Width="{TemplateBinding Width}" 
+                        <Border Style="{StaticResource ShiningMenuStyle}"  BorderThickness="1" Height="Auto" Width="{TemplateBinding Width}" 
                                 CornerRadius="20,20,1,1"  Cursor="Hand" Margin="0,0,0,0" Grid.RowSpan="2" >
                             <Border.Background>
-                                <!--定义圆角外边框背景-->
-                                <LinearGradientBrush StartPoint="0 0" EndPoint="1 1 " Opacity="0.8">
-                                    <GradientStop Color="#FFD15FEE" Offset="0.6"/>
-                                    <GradientStop Color="#FFFF6EB4" Offset="0.9"/>
-                                    <!--<GradientStop Color="	#FFF8DC" Offset="0.99"/>-->
-                                </LinearGradientBrush>
+                                <ImageBrush ImageSource="FILE.png">
+                                    <ImageBrush.RelativeTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.05" ScaleY="1.15"/>
+                                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                            <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                            <TranslateTransform Y="0.03"/>
+                                        </TransformGroup>
+                                    </ImageBrush.RelativeTransform>
+                                </ImageBrush>
                             </Border.Background>
                         </Border>
 
@@ -84,21 +88,21 @@
 
             <Border x:Name="Nac_Logo" Width="60" Height="60" >
                 <Border.Background>
-                    <ImageBrush ImageSource="resource/logotest.png">
+                    <ImageBrush ImageSource="logo.png" Stretch="UniformToFill">
                         <ImageBrush.RelativeTransform>
                             <TransformGroup>
-                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleY="0.93"/>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.05"/>
                                 <SkewTransform CenterY="0.5" CenterX="0.5"/>
                                 <RotateTransform CenterY="0.5" CenterX="0.5"/>
-                                <TranslateTransform/>
+                                <TranslateTransform X="-0.01"/>
                             </TransformGroup>
                         </ImageBrush.RelativeTransform>
                     </ImageBrush>
                 </Border.Background>
             </Border>
-            <Border x:Name="Nac_slogan" Width=" 200" Height="60">
+            <Border x:Name="Nac_slogan" Width="181.333" Height="60">
                 <Border.Background>
-                    <ImageBrush ImageSource="resource/slogan1.png">
+                    <ImageBrush ImageSource="slogan4.png">
                         <ImageBrush.RelativeTransform>
                             <TransformGroup>
                                 <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleY="0.75" ScaleX="0.88"/>
@@ -130,6 +134,7 @@
 
         <Menu x:Name="Nav_ButtonGroup" Grid.Column="2" Height="60"  VerticalAlignment="Top" Background="#D8BFD8">
             <Menu.Resources>
+                <!--检测端口按钮-->
                 <Style TargetType="Button">
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -146,11 +151,16 @@
 
                                         <Border.Background>
                                             <!--定义圆角外边框背景-->
-                                            <LinearGradientBrush StartPoint="0, 0" EndPoint="1, 1.2 " Opacity="0.6">
-                                                <GradientStop Color="#FFD15FEE" Offset="0.7"/>
-                                                <GradientStop Color="#FFFF6EB4" Offset="0.9"/>
-                                                <!--<GradientStop Color="	#FFF8DC" Offset="0.99"/>-->
-                                            </LinearGradientBrush>
+                                            <ImageBrush ImageSource="右上角四个图标1.png">
+                                                <ImageBrush.RelativeTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.25" ScaleY="1.25"/>
+                                                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                        <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </ImageBrush.RelativeTransform>
+                                            </ImageBrush>
                                         </Border.Background>
                                         <!--定义Grid-->
                                         <Grid >
@@ -175,16 +185,19 @@
                 </Style>
 
             </Menu.Resources>
+            <!--右上角四个图标的样式-->
+            <Button x:Name="Btn_ScanPort" FontSize="13" Content="检测端口"  Height="35" Width="85" Margin="0,15,0,0" Click="Btn_ScanPort_Click">
+                
 
-            <Border>
-                <Button x:Name="Btn_ScanPort" FontSize="13" Content="检测端口"  Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_ScanPort_Click"></Button>
-            </Border>
+            </Button>
             <Button x:Name="Btn_ScanSerial" FontSize="13" Content="扫描外设" Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_ScanSerial_Click"/>
             <Button x:Name="Btn_GenerateHex" FontSize="13" Content="编译程序" Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_GenerateHex_Click"/>
             <Button x:Name="Btn_ClearCanvas2" FontSize="13" Content="清空程序" Height="35" Background="White" Width="85" Margin="0,15,0,0" Click="Btn_ClearCanvas2_Click"/>
         </Menu>
+        <!--菜单栏-->
 
         <Canvas x:Name="RootCanvas" Margin="0,60,-6.4,0" Background="SeaShell" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <!--总画布-->
 
             <Canvas.Resources>
                 <Style x:Key="ShiningBorderStyle" TargetType="{x:Type Border}">
@@ -200,189 +213,431 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-
-
-
             </Canvas.Resources>
-
+            <!--子菜单鼠标亮暗-->
+            <!--左侧总功能区-->
             <Canvas  Margin="0,0,0,0" x:Name="Canvas1" Height="794" Width="370" Canvas.Left="0" Background="SeaShell" Canvas.Top="5">
-                <ScrollViewer  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Width="370" Height="794">
-                    <Grid>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height=" 210"/>
-                            <RowDefinition Height=" 130"/>
-                            <RowDefinition Height=" 90"/>
-                            <RowDefinition Height=" 90"/>
-                            <RowDefinition Height=" 90"/>
-                            <RowDefinition Height=" 90"/>
-                            <RowDefinition Height=" 90"/>
-                        </Grid.RowDefinitions>
-                        <Border x:Name="Basic_Border" Grid.Row="0" BorderBrush="#FFFF6A6A" BorderThickness="1.6" Height="200" Width="345" Canvas.Left="5" Canvas.Top="0">
-                            <Canvas x:Name="Group_Basic" Background="#FFE4E1" Margin="0,0,0,0" Height="197" VerticalAlignment="Top">
-                                <Border>
-                                    <Label x:Name="Label_Basic" Content=" Basic"  Width="342" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#ffff6a6a">
-
-                                    </Label>
-
-                                </Border>
-                                <local:NewCanvas x:Name="Rec_Initial" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="1" 
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=" 210"/>
+                        <RowDefinition Height=" 130"/>
+                        <RowDefinition Height=" 90"/>
+                        <RowDefinition Height=" 90"/>
+                        <RowDefinition Height=" 90"/>
+                        <RowDefinition Height=" 90"/>
+                        <RowDefinition Height=" 90"/>
+                    </Grid.RowDefinitions>
+                    <Border x:Name="Basic_Border" Grid.Row="0" CornerRadius="15" Background="#FFFFECEF" BorderBrush="#FFFF6A6A" BorderThickness="1.6" Height="200" Width="345" Canvas.Left="5" Canvas.Top="0">
+                        <Canvas x:Name="Group_Basic" Margin="0,0,0,0" Height="197" VerticalAlignment="Top">
+                            <Border CornerRadius="13,15,0,0" Background="#ffff6a6a">
+                                <Label x:Name="Label_Basic" Content=" Basic"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Margin="0" Padding="6,5,5,5" />
+                            </Border>
+                            <local:NewCanvas x:Name="Rec_Initial" Height="35" Canvas.Left="10" Canvas.Top="36" Width="150" Index="1" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A" Code_Prefix=" " Code_Suffix=" ">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="58" Canvas.Top="8">Initial</local:NewTextBlock>
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="Rec_Loop" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Index="2"
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="37" Canvas.Left="0" Canvas.Top="-2">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="basic发光.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="58" Canvas.Top="8">Initial</local:NewTextBlock>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_Loop" Height="32" Canvas.Left="180" Canvas.Top="36" Width="150" Index="2"
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A" Code_Prefix="while(1) " Code_Suffix=" ">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="58" Canvas.Top="8">Loop</local:NewTextBlock>
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="Rec_Delayms" Height="32" Canvas.Left="10" Canvas.Top="80" Width="150" Index="3"
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Canvas.Left="-1" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="basic发光.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="56" Canvas.Top="6">
+                                    <local:NewTextBlock.Background>
+                                        <ImageBrush/>
+                                    </local:NewTextBlock.Background> Loop
+                                </local:NewTextBlock>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_Delayms" Height="32" Canvas.Left="10" Canvas.Top="76" Width="150" Index="3"
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A" Code_Prefix="Delay_ms(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
-                                    <local:NewLabel IsHitTestVisible="False" Content="Delay" FontSize="14" Canvas.Top="2" Canvas.Left="10" Foreground="White" />
-                                    <local:NewTextBox Canvas.Left="68" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="40" Height="20" 
-                                              MaxHeight="20" RegexString="^\d{1,4}$" DefaultText="0" BorderBrush="{x:Null}"/>
-                                    <local:NewLabel IsHitTestVisible="False" Content="ms" FontSize="14" Canvas.Top="2" Canvas.Left="100" Foreground="White" />
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="Rec_While" Height="32" Canvas.Left="180" Canvas.Top="80" Width="150" Index="4" 
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Top="0" Canvas.Left="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="basic发光.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewLabel IsHitTestVisible="False" Content="Delay" FontSize="14" Canvas.Top="4" Canvas.Left="13" Foreground="White" />
+                                <local:NewTextBox Canvas.Left="68" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="40" Height="20" 
+                                              MaxHeight="20" RegexString="^\d{1,4}$" DefaultText="0" BorderBrush="{x:Null}" Background="#FFFFF0EF"/>
+                                <local:NewLabel IsHitTestVisible="False" Content="ms" FontSize="14" Canvas.Top="2" Canvas.Left="100" Foreground="White" />
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_While" Height="32" Canvas.Left="180" Canvas.Top="76" Width="150" Index="4" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A" Code_Prefix="while(" Code_Suffix=")">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
-                                    <local:NewLabel IsHitTestVisible="False" Content="While" FontSize="14" Canvas.Top="2" Canvas.Left="25" Foreground="White" />
-                                    <local:NewTextBox Canvas.Left="80.5" TextWrapping="Wrap"  Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="70" Height="20" 
-                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null" BorderBrush="{x:Null}"/>
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="Rec_Assign" Height="32" Canvas.Left="10" Canvas.Top="120" Width="150" Index="5"
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Canvas.Left="-1" Canvas.Top="0" Height="35">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="basic发光.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewLabel IsHitTestVisible="False" Content="While" FontSize="14" Canvas.Top="4" Canvas.Left="25" Foreground="White" />
+                                <local:NewTextBox Canvas.Left="80.5" TextWrapping="Wrap"  Text="Null" Canvas.Top="8" FontSize="14" MinWidth="20" MaxWidth="70" Height="20" 
+                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null" BorderBrush="{x:Null}" Background="#FFFFF0EF"/>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_Assign" Height="32" Canvas.Left="10" Canvas.Top="116" Width="150" Index="5"
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A" Code_Prefix=" " Code_Suffix="=">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
-                                    <local:NewTextBox Canvas.Left="40" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="65" Height="20" 
-                                              MaxHeight="20" RegexString="^[a-cx-z]$" DefaultText="NULL" BorderBrush="{x:Null}"/>
-                                    <local:NewLabel IsHitTestVisible="False" Content="=" FontSize="14" Canvas.Top="2" Canvas.Left="86.5" Foreground="White" />
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="Rec_If" Height="32" Canvas.Left="180" Canvas.Top="120" Width="150" Index="6" 
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Canvas.Left="0" Height="35" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="basic发光.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBox Canvas.Left="41" TextWrapping="Wrap" Text="Null" Canvas.Top="7" FontSize="14" MinWidth="20" MaxWidth="65" Height="20" 
+                                              MaxHeight="20" RegexString="^[a-cx-z]$" DefaultText="NULL" BorderBrush="{x:Null}" Background="#FFFFF0EF"/>
+                                <local:NewLabel IsHitTestVisible="False" Content="=" FontSize="14" Canvas.Top="2" Canvas.Left="86.5" Foreground="White" />
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_If" Height="32" Canvas.Left="180" Canvas.Top="116" Width="150" Index="6" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A" Code_Prefix="if (" Code_Suffix=")">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
-                                    <local:NewLabel IsHitTestVisible="False" Content="If" FontSize="14" Canvas.Top="2" Canvas.Left="42" Foreground="White" />
-                                    <local:NewTextBox Canvas.Left="75" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="80" Height="20" 
-                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null" BorderBrush="{x:Null}"/>
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="Rec_Else" Height="32" Canvas.Left="10" Canvas.Top="160" Width="150" Index="7" 
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Height="35" Canvas.Top="0" Width="161" Canvas.Left="-1">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="basic发光.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewLabel IsHitTestVisible="False" Content="If" FontSize="14" Canvas.Top="4" Canvas.Left="42" Foreground="White" />
+
+                                <local:NewTextBox Canvas.Left="75" TextWrapping="Wrap" Text="Null" Canvas.Top="8" FontSize="14" MinWidth="20" MaxWidth="80" Height="20" 
+                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null" BorderBrush="{x:Null}" Background="#FFFFF0EF"/>
+
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_Else" Height="32" Canvas.Left="10" Canvas.Top="156" Width="150" Index="7" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A" Code_Prefix="else" Code_Suffix=" ">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="58" Canvas.Top="8">Else</local:NewTextBlock>
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="Rec_End" Height="32" Canvas.Left="180" Canvas.Top="160" Width="150" Index="15" 
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="0" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="basic发光.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="61" Canvas.Top="8">Else</local:NewTextBlock>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_End" Height="32" Canvas.Left="180" Canvas.Top="156" Width="150" Index="15" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF6A6A" Code_Prefix=" " Code_Suffix=" ">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFF6a6a"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="58" Canvas.Top="8">End</local:NewTextBlock>
-                                </local:NewCanvas>
-                            </Canvas>
-                        </Border>
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="-1" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="basic发光.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="62" Canvas.Top="8">End</local:NewTextBlock>
+                            </local:NewCanvas>
+                        </Canvas>
+                    </Border>
 
-                        <Border x:Name="LED_Border" Grid.Row="1" BorderBrush="#FFFFC125" BorderThickness="1.6" Height="120" Width="345" Canvas.Left="5" Canvas.Top="210" Opacity="0.3">
-                            <Canvas x:Name="Group_LED" Background="	Cornsilk"   Margin="0,0,0,0" Height="117" VerticalAlignment="Top">
-                                <Label x:Name="Label_LED" Content=" LED"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FFFFC125"/>
-
-                                <local:NewCanvas x:Name="Rec_LEDON" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="8" 
+                    <Border x:Name="LED_Border" Grid.Row="1"  Background="#FFFFF6E0" BorderBrush="#FFFFC125" CornerRadius="15" BorderThickness="1.6" Height="120" Width="345" Canvas.Left="5" Canvas.Top="210" Opacity="0.3">
+                        <Canvas x:Name="Group_LED" Margin="0,0,0,0" Height="197" VerticalAlignment="Top">
+                            <Border CornerRadius="13,15,0,0" Background="#FFFFC125">
+                            <Label x:Name="Label_LED" Content=" LED"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" />
+                            </Border>
+                            <local:NewCanvas x:Name="Rec_LEDON" Height="32" Canvas.Left="10" Canvas.Top="37" Width="150" Index="8" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFFC125" Code_Prefix="led_on(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFFC125"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="40" Canvas.Top="8" Width="80">LED On</local:NewTextBlock>
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="Rec_LEDOFF" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Index="9" 
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="0" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="LED图标.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="40" Canvas.Top="8" Width="80">LED On</local:NewTextBlock>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_LEDOFF" Height="32" Canvas.Left="180" Canvas.Top="37" Width="150" Index="9" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFFC125" Code_Prefix="led_off(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFFC125"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="50" Canvas.Top="8">LED Off</local:NewTextBlock>
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="LED_Blink" Height="32" Canvas.Left="10" Canvas.Top="80" Width="150" Index="10"
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="-1" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="LED图标.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="50" Canvas.Top="8">LED Off</local:NewTextBlock>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="LED_Blink" Height="32" Canvas.Left="10" Canvas.Top="77" Width="150" Index="10"
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFFC125" Code_Prefix="led_blink(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FFFFC125"/>
-                                    <local:NewLabel IsHitTestVisible="False" Content="Blink T = " FontSize="14" Canvas.Top="2" Canvas.Left="17.5" Foreground="White" />
-                                    <local:NewTextBox Canvas.Left="90" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
-                                              MaxHeight="20" RegexString="^.{1,4}$" DefaultText="0" BorderBrush="{x:Null}"/>
-                                    <local:NewLabel IsHitTestVisible="False" Content="s" FontSize="14" Canvas.Top="2" Canvas.Left="117" Foreground="White" />
-                                </local:NewCanvas>
-                            </Canvas>
-                        </Border>
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="0" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="LED图标.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewLabel IsHitTestVisible="False" Content="Blink T = " FontSize="14" Canvas.Top="2" Canvas.Left="17.5" Foreground="White" />
+                                <local:NewTextBox Canvas.Left="90" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
+                                              MaxHeight="20" RegexString="^.{1,4}$" DefaultText="0" BorderBrush="{x:Null}" Background="LemonChiffon"/>
+                                <local:NewLabel IsHitTestVisible="False" Content="s" FontSize="14" Canvas.Top="2" Canvas.Left="117" Foreground="White" />
+                            </local:NewCanvas>
+                        </Canvas>
+                    </Border>
 
-                        <Border x:Name="DHT11_Border" Grid.Row="2" BorderBrush="#FFFF8C00" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="340" Opacity="0.3">
-                            <Canvas x:Name="Group_DHT11" Background="#FFE4C4" Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
-                                <Label x:Name="Label_DHT11" Content=" DHT11"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FFFF7F24"/>
-
-                                <local:NewCanvas x:Name="Rec_GetTemp" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="11" 
+                    <Border x:Name="DHT11_Border" Grid.Row="2" Background="#FFFFE6D4" CornerRadius="15" BorderBrush="#FFFF8C00" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="340" Opacity="0.3">
+                        <Canvas x:Name="Group_DHT11"  Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
+                            <Border CornerRadius="13,15,0,0" Background="#FFFF7F24">
+                            <Label x:Name="Label_DHT11" Content=" DHT11"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" />
+                            </Border>
+                            <local:NewCanvas x:Name="Rec_GetTemp" Height="32" Canvas.Left="10" Canvas.Top="37" Width="150" Index="11" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF7F24" Code_Prefix="rd_temp(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FF7F24"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Get temperature</local:NewTextBlock>
-                                </local:NewCanvas>
-                                <local:NewCanvas x:Name="Rec_GetHumi" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Index="12" 
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="0" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="DHT11图标.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Get temperature</local:NewTextBlock>
+                            </local:NewCanvas>
+                            <local:NewCanvas x:Name="Rec_GetHumi" Height="32" Canvas.Left="180" Canvas.Top="37" Width="150" Index="12" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FFFF7F24" Code_Prefix="rd_humi(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FF7F24"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="34" Canvas.Top="8">Get humidity</local:NewTextBlock>
-                                </local:NewCanvas>
-                            </Canvas>
-                        </Border>
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="-1" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="DHT11图标.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="34" Canvas.Top="8">Get humidity</local:NewTextBlock>
+                            </local:NewCanvas>
+                        </Canvas>
+                    </Border>
 
-                        <Border x:Name="Servo_Border"  Grid.Row="3" BorderBrush="#FF00B2EE" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="430" Opacity="0.3">
-                            <Canvas x:Name="Group_Servo" Background="#D1EEEE" Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
-                                <Label x:Name="Label_Servo" Content=" Servo"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FF00B2EE"/>
-
-                                <local:NewCanvas x:Name="Rec_Servo" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="13" 
+                    <Border x:Name="Servo_Border"  Grid.Row="3" Background="#FFC6E8F3" CornerRadius="15" BorderBrush="#FF00B2EE" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="430" Opacity="0.3">
+                        <Canvas x:Name="Group_Servo"  Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
+                            <Border CornerRadius="13,15,0,0" Background="#FF00B2EE">
+                            <Label x:Name="Label_Servo" Content=" Servo"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" />
+                            </Border>
+                            <local:NewCanvas x:Name="Rec_Servo" Height="32" Canvas.Left="10" Canvas.Top="37" Width="150" Index="13" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FF00B2EE" Code_Prefix="drive_servo(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#00B2EE"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Set angle to</local:NewTextBlock>
-                                    <local:NewTextBox Canvas.Left="109" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
-                                              MaxHeight="20" RegexString="^.{1,3}$" DefaultText="0" BorderBrush="{x:Null}"/>
-                                </local:NewCanvas>
-                            </Canvas>
-                        </Border>
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="0" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="servo图标.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Set angle to</local:NewTextBlock>
+                                <local:NewTextBox Canvas.Left="109" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
+                                              MaxHeight="20" RegexString="^.{1,3}$" DefaultText="0" BorderBrush="{x:Null}" Background="#FFD1EEEE"/>
+                            </local:NewCanvas>
+                        </Canvas>
+                    </Border>
 
-                        <Border x:Name="Pressure_Border" Grid.Row="4" BorderBrush="#FF00CD66" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="520" Opacity="0.3">
-                            <Canvas x:Name="Group_Pressure" Background="#C1FFC1" Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
-                                <Label x:Name="Label_Pressure" Content=" BMP180"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FF00CD66"/>
-
-                                <local:NewCanvas x:Name="Rec_Pressure" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="16" 
+                    <Border x:Name="Pressure_Border" CornerRadius="15" Grid.Row="4" BorderBrush="#FF00CD66" Background="#FFD5FBD5" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="520" Opacity="0.3">
+                        <Canvas x:Name="Group_Pressure"  Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
+                            <Border CornerRadius=" 13,15,0,0" Background="#FF00CD66">
+                            <Label x:Name="Label_Pressure" Content=" BMP180"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" />
+                            </Border>
+                            <local:NewCanvas x:Name="Rec_Pressure" Height="32" Canvas.Left="10" Canvas.Top="37" Width="150" Index="16" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FF00CD66" Code_Prefix="rd_pres(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#00CD66"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="34" Canvas.Top="8">Get pressure</local:NewTextBlock>
-                                </local:NewCanvas>
-                            </Canvas>
-                        </Border>
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="0" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="BMP180图标.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="34" Canvas.Top="8">Get pressure</local:NewTextBlock>
+                            </local:NewCanvas>
+                        </Canvas>
+                    </Border>
 
-                        <Border x:Name="Motor_Border" Grid.Row="5" BorderBrush="#FF966FFF" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="610" Opacity="0.3">
-                            <Canvas x:Name="Group_Motor" Background="#FFDACFF7" Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
-                                <Label x:Name="Label_Motor" Content=" Motor"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FF966FFF"/>
-
-                                <local:NewCanvas x:Name="Rec_Motor" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="17" 
+                    <Border x:Name="Motor_Border" Grid.Row="5" CornerRadius="15" BorderBrush="#FF966FFF" Background="#FFDACFF7" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="610" Opacity="0.3">
+                        <Canvas x:Name="Group_Motor"  Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
+                            <Border CornerRadius=" 13,15,0,0" Background="#FF966FFF">
+                            <Label x:Name="Label_Motor" Content=" Motor"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" />
+                            </Border>
+                            <local:NewCanvas x:Name="Rec_Motor" Height="32" Canvas.Left="10" Canvas.Top="37" Width="150" Index="17" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FF966FFF" Code_Prefix="set_speed(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FF966FFF"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Set speed to</local:NewTextBlock>
-                                    <local:NewTextBox Canvas.Left="109" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
-                                              MaxHeight="20" RegexString="^.{1,3}$" DefaultText="0" BorderBrush="{x:Null}"/>
-                                </local:NewCanvas>
-                            </Canvas>
-                        </Border>
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="0" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="Motor.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Set speed to</local:NewTextBlock>
+                                <local:NewTextBox Canvas.Left="109" TextWrapping="Wrap" Text="0" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
+                                              MaxHeight="20" RegexString="^.{1,3}$" DefaultText="0" BorderBrush="{x:Null}" Background="#FFDACFF7"/>
+                            </local:NewCanvas>
+                        </Canvas>
+                    </Border>
 
-                        <Border x:Name="Serial_Border" Grid.Row="6" BorderBrush="#FF966FFF" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="700">
-                            <Canvas x:Name="Serial_Motor" Background="#FFD1CFF7" Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
-                                <Label x:Name="Label_Serial" Content=" Serial"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold" Background="#FF766FFF"/>
-
-                                <local:NewCanvas x:Name="Rec_SerialString" Height="32" Canvas.Left="10" Canvas.Top="40" Width="150" Index="17" 
+                    <Border x:Name="Serial_Border" Grid.Row="6" CornerRadius="15" BorderBrush="#FF966FFF" Background="#FFD1DAE7" BorderThickness="1.6" Height="80" Width="345" Canvas.Left="5" Canvas.Top="700">
+                        <Canvas x:Name="Serial_Motor"  Margin="0,0,0,0" Height="77" VerticalAlignment="Top">
+                            <Border CornerRadius=" 13,15,0,0"  Background="#FF3163FF">
+                            <Label x:Name="Label_Serial" Content=" Serial"  Width="343" Height="30" FontSize="19" Foreground="White" FontWeight="Bold"/>
+                            </Border>
+                            <local:NewCanvas x:Name="Rec_SerialString" Height="32" Canvas.Left="10" Canvas.Top="37" Width="150" Index="17" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FF766FFF" Code_Prefix="set_speed(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FF766FFF"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="10" Canvas.Top="8">Send string</local:NewTextBlock>
-                                    <local:NewTextBox Canvas.Left="88.737" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
-                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null" BorderBrush="{x:Null}" Width="40.263"/>
-                                </local:NewCanvas>
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="serial图标.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="10" Canvas.Top="8">Send string</local:NewTextBlock>
+                                <local:NewTextBox Canvas.Left="88.737" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
+                                              MaxHeight="20" RegexString="^.{3,20}$" DefaultText="Null" BorderBrush="{x:Null}" Width="40.263" Background="#FFD1E1F6"/>
+                            </local:NewCanvas>
 
-                                <local:NewCanvas x:Name="Rec_SerialByte" Height="32" Canvas.Left="180" Canvas.Top="40" Width="150" Index="17" 
+                            <local:NewCanvas x:Name="Rec_SerialByte" Height="32" Canvas.Left="180" Canvas.Top="37" Width="150" Index="17" 
                                          MouseLeftButtonDown="Rec_MouseLeftButtonDown" MouseLeftButtonUp="Rec_MouseLeftButtonUp" Cursor="Hand" ThemeColor="#FF766FFF" Code_Prefix="set_speed(" Code_Suffix=");">
-                                    <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Background="#FF766FFF"/>
-                                    <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Send byte</local:NewTextBlock>
-                                    <local:NewTextBox Canvas.Left="88.737" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
-                                              MaxHeight="20" RegexString="^.{1,20}$" DefaultText="Null" BorderBrush="{x:Null}" Width="40.263"/>
-                                </local:NewCanvas>
-                            </Canvas>
-                        </Border>
-                    </Grid>
-                </ScrollViewer>
+                                <local:NewBorder Style="{StaticResource ShiningBorderStyle}" Width="161" Height="35" Canvas.Left="-1" Canvas.Top="0">
+                                    <local:NewBorder.Background>
+                                        <ImageBrush ImageSource="serial图标.png">
+                                            <ImageBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.3"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform Y="-0.03"/>
+                                                </TransformGroup>
+                                            </ImageBrush.RelativeTransform>
+                                        </ImageBrush>
+                                    </local:NewBorder.Background>
+                                </local:NewBorder>
+                                <local:NewTextBlock IsHitTestVisible="False" TextAlignment="Center" FontSize="14" Foreground="White" Canvas.Left="20" Canvas.Top="8">Send byte</local:NewTextBlock>
+                                <local:NewTextBox Canvas.Left="88.737" TextWrapping="Wrap" Text="Null" Canvas.Top="6" FontSize="14" MinWidth="20" MaxWidth="50" Height="20" 
+                                              MaxHeight="20" RegexString="^.{1,20}$" DefaultText="Null" BorderBrush="{x:Null}" Width="40.263">
+                                    <local:NewTextBox.Background>
+                                        <SolidColorBrush Color="#FFD1E1F6"/>
+                                    </local:NewTextBox.Background>
+                                </local:NewTextBox>
+                            </local:NewCanvas>
+                        </Canvas>
+                    </Border>
+                </Grid>
             </Canvas>
 
 
@@ -390,7 +645,11 @@
 
 
             <GridSplitter x:Name="RootGridSplitter" Height="650" Background="SeaShell" Width="3" HorizontalAlignment="Left" Canvas.Left="355"/>
-            <Canvas x:Name="Canvas2" Height="794" Width="1053.4" Canvas.Left="375" Canvas.Top="5" Background="SeaShell" />
+            <Canvas x:Name="Canvas2" Height="794" Width="1053.4" Canvas.Left="375" Canvas.Top="5" >
+                <Canvas.Background>
+                    <ImageBrush/>
+                </Canvas.Background>
+            </Canvas>
 
         </Canvas>
     </Grid>
