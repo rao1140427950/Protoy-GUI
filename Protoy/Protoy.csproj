@@ -102,6 +102,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="深蓝模块.png" />
+    <Resource Include="紫模块.png" />
+    <Resource Include="绿模块.png" />
+    <Resource Include="蓝模块.png" />
+    <Resource Include="橙模块.png" />
+    <Resource Include="黄模块.png" />
+    <Resource Include="粉模块1.png" />
+    <Resource Include="粉模块.png" />
     <Resource Include="菜单栏.png" />
     <Resource Include="slogan4.png" />
     <Resource Include="slogan3.png" />
